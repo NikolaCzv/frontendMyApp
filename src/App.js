@@ -1,7 +1,8 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {Router, Route} from 'react-router-dom'
 import login from './components/Login'
 import dashboard from './components/Dashboard'
+import history from './actions/history'
 
 
 class App extends React.Component {
@@ -9,7 +10,7 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
-        < Router >
+        < Router history={history}>
             < Route exact path='/' component={login} />
             < Route exact path='/login' component={login} />
             < Route exact path='/dashboard' component={dashboard} />

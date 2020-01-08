@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import { userLogin } from '../actions/userLogin'
+import { login } from '../actions/userLogin'
 import { connect } from 'react-redux'
 
 class Login extends React.Component {
@@ -21,27 +21,9 @@ class Login extends React.Component {
 
   handleLogin = event => {
     event.preventDefault()
-
-    const reqObj = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state)
-    }
-
-    fetch('http://localhost:3000/api/v1/users', reqObj)
-    .then(resp => resp.json())
-    .then(userData => {
-      if(userData.error){
-        alert('Invalid Password or Username')
-      } else {
-        localStorage.setItem('token', userData.token)
-        this.props.userLogin(userData)
-        this.props.history.push('/dashboard')
-      }
-    })
+    this.props.login(this.state)
   }
+
 
     render(){
         return(
@@ -86,7 +68,7 @@ class Login extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    userLogin: (user) => { dispatch(userLogin(user))}
+    login: (user) => { dispatch(login(user))}
   }
 }
 
