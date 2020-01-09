@@ -7,6 +7,12 @@ const userLogin = (user) => {
     }
 }
 
+export const signout = () => {
+    return{
+        type: 'SIGN_OUT'
+    }
+}
+
 export const login = user => {
   
      return function(dispatch){
@@ -50,6 +56,31 @@ export const checkUser = token => {
                 this.props.history.push('/login')
             } else {
                 dispatch(userLogin(userData))
+            }
+        })
+    }
+}
+
+export const signup = user => {
+    return function(dispatch){
+
+            const reqObj = {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            } 
+
+        fetch('http://localhost:3000/api/v1/signup', reqObj)
+        .then(resp => resp.json())
+        .then(userData => {
+            if(userData.error){
+                alert('Invalid input')
+            } else {
+                localStorage.setItem('token', userData.token)
+                dispatch(userLogin(userData))
+                history.push('/dashboard')
             }
         })
     }

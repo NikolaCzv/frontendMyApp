@@ -1,10 +1,30 @@
 import React from 'react'
 import { Button, Form, Grid, Divider, Image, Header} from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { signup } from '../actions/userLogin'
 
 class SignUp extends React.Component {
 
+    state = {
+        username: '',
+        email: '',
+        password: '',
+        password_confirmation: ''
+    }
+
     handleBackButton = () => {
         this.props.history.push('/login')
+    }
+
+    handleChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
+    handleSubmit = event => {
+       event.preventDefault()
+       this.props.signup(this.state)
     }
 
     render(){
@@ -17,14 +37,19 @@ class SignUp extends React.Component {
                         <Header as='h2' color='green' textAlign='center'>
                             Please sign-up
                         </Header>
-                        <Form>
+                        <Form onSubmit={this.handleSubmit}>
                             <Form.Field>
                             <label>Username</label>
-                            <input placeholder='Username' />
+                            <input placeholder='Username'
+                            name='username'
+                            onChange={this.handleChange}/>
                             </Form.Field>
                             <Form.Field>
                             <label>Email</label>
-                            <input placeholder='joe@schmoe.com'
+                            <input
+                            onChange={this.handleChange}
+                            placeholder='joe@schmoe.com'
+                            name='email'
                                 error={{
                                     content: 'Please enter a valid email address',
                                     pointing: 'below',
@@ -34,8 +59,19 @@ class SignUp extends React.Component {
                             <label>Password</label>
                             <input placeholder='Password' 
                             type='password'
+                            name='password'
+                            onChange={this.handleChange}
                             />
                             </Form.Field>
+                            <Form.Field>
+                            <label>Confirm Password</label>
+                            <input placeholder='Password Confirmation' 
+                            type='password'
+                            name='password_confirmation'
+                            onChange={this.handleChange}
+                            />
+                            </Form.Field>
+                            
                             <Button type='submit' color='green' fluid size='large'>Submit</Button><br></br>
                             <Button onClick={this.handleBackButton} fluid size='large'>Back to Login Page</Button>
                         </Form>
@@ -46,4 +82,10 @@ class SignUp extends React.Component {
     }
 }
 
-export default SignUp
+const mapDispatchToProps = dispatch => {
+    return{
+        signup: user => {dispatch(signup(user))}
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SignUp)
