@@ -1,5 +1,5 @@
 import React from 'react'
-import { login, checkUser } from '../actions/userLogin'
+import { checkUser } from '../actions/userLogin'
 import { connect } from 'react-redux'
 
 export default function WithAuth(WrappedComponent) {

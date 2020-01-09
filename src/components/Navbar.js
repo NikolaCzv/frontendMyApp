@@ -29,6 +29,11 @@ class Navbar extends React.Component {
         this.setState({ activeItem: name })
     }
 
+    handleFriendButton = (e, {name}) => {
+        history.push('/friendsList')
+        this.setState({ activeItem: name })
+    }
+
 
     render(){
         const { activeItem } = this.state
@@ -53,7 +58,7 @@ class Navbar extends React.Component {
             <Menu.Item
               name='friends'
               active={activeItem === 'friends'}
-              onClick={this.handleItemClick}
+              onClick={this.handleFriendButton}
             />
             <Menu.Item
               name='sign out'

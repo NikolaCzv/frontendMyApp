@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { connect } from 'react-redux'
-import { Grid, Image, Card, Icon, Button, Menu } from 'semantic-ui-react'
+import { Grid, Image, Card, Icon, Menu } from 'semantic-ui-react'
 import WithAuth from './WithAuth'
 
 class MyProfile extends React.Component{
