@@ -1,12 +1,12 @@
 import React from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Button } from 'semantic-ui-react'
 import history from '../actions/history'
 import { signout } from '../actions/userLogin'
 import { connect } from 'react-redux'
 
 class Navbar extends React.Component {
     state = { 
-        activeItem: 'dashboard' 
+        activeItem: '' 
     }
 
     handleItemClick = (e, { name }) => {
@@ -39,7 +39,7 @@ class Navbar extends React.Component {
         const { activeItem } = this.state
 
         return (
-          <Menu inverted color='green' widths={5}>
+          <Menu inverted color='green'>
             <Menu.Item
                 name='dashboard'
                 active={activeItem === 'dashboard'}
@@ -60,11 +60,11 @@ class Navbar extends React.Component {
               active={activeItem === 'friends'}
               onClick={this.handleFriendButton}
             />
-            <Menu.Item
-              name='sign out'
-              active={activeItem === 'sign out'}
-              onClick={this.handleSignOut}
-            />
+            <Menu.Menu position='right'>
+                <Button color='orange'
+                     onClick={this.handleSignOut}
+                    >Sign Out</Button>
+            </Menu.Menu>
           </Menu>
         )
     }

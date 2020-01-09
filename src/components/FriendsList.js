@@ -6,8 +6,20 @@ import { Image, List, Input } from 'semantic-ui-react'
 
 class FriendsList extends React.Component {
 
+    state = {
+        searchTerm: ''
+    }
+
+    handleSearch = (event) => {
+        this.setState({
+          searchTerm: event.target.value
+        })
+    }
+
     renderFolowees(){
-       return this.props.user.currentUser.followees.map((follow, index) => {
+        const allFollowees = this.props.user.currentUser.followees.filter(followee => followee.username.toLowerCase().includes(this.state.searchTerm))
+
+       return allFollowees.map((follow, index) => {
         return   (
             <div>
                 <List key={index} animated verticalAlign='middle'>
@@ -25,13 +37,14 @@ class FriendsList extends React.Component {
     }
 
     render(){
+
         return(
             <div>
                 <div>
                     < Navbar />
                 </div>
                 <div>
-                    <Input icon='users' iconPosition='left' placeholder='Search users...' />
+                    <Input icon='users' iconPosition='left' placeholder='Search users...' onChange={this.handleSearch}/>
                 </div>
                 <div>
                     {this.renderFolowees()}
