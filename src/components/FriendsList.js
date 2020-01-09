@@ -2,26 +2,33 @@ import React from 'react'
 import Navbar from './Navbar'
 import { connect } from 'react-redux'
 import WithAuth from './WithAuth'
-import { Image, List, Input } from 'semantic-ui-react'
+import { Image, List, Input, Grid, GridColumn } from 'semantic-ui-react'
 
 class FriendsList extends React.Component {
 
     state = {
-        searchTerm: ''
+        searchTermFollowees: '',
+        searchTermFollowers: ''
     }
 
-    handleSearch = (event) => {
+    handleSearchFollowees = (event) => {
         this.setState({
-          searchTerm: event.target.value
+          searchTermFollowees: event.target.value
         })
     }
 
+    handleSearchFollowers = (event) => {
+        this.setState({
+          searchTermFollowers: event.target.value
+        })
+    }
+
+
     renderFolowees(){
-        const allFollowees = this.props.user.currentUser.followees.filter(followee => followee.username.toLowerCase().includes(this.state.searchTerm))
+        const allFollowees = this.props.user.currentUser.followees.filter(followee => followee.username.toLowerCase().includes(this.state.searchTermFollowees))
 
        return allFollowees.map((follow, index) => {
         return   (
-            <div>
                 <List key={index} animated verticalAlign='middle'>
                     <List.Item>
                         <Image avatar src={follow.profile_pic_url} />
@@ -30,11 +37,28 @@ class FriendsList extends React.Component {
                         </List.Content>
                     </List.Item>
                 </List>
-
-            </div>
                 )
        })
     }
+
+    renderFolowers(){
+        const allFollowers = this.props.user.currentUser.followers.filter(follower => follower.username.toLowerCase().includes(this.state.searchTermFollowers))
+
+       return allFollowers.map((follow, index) => {
+        return   (
+                <List key={index} animated verticalAlign='middle'>
+                    <List.Item>
+                        <Image avatar src={follow.profile_pic_url} />
+                        <List.Content>
+                            <List.Header>{follow.username}</List.Header>
+                        </List.Content>
+                    </List.Item>
+                </List>
+                )
+       })
+    }
+
+
 
     render(){
 
@@ -43,12 +67,18 @@ class FriendsList extends React.Component {
                 <div>
                     < Navbar />
                 </div>
-                <div>
-                    <Input icon='users' iconPosition='left' placeholder='Search users...' onChange={this.handleSearch}/>
-                </div>
-                <div>
-                    {this.renderFolowees()}
-                </div>
+                <Grid columns={2} padded>
+                    <Grid.Column>
+                        <h3>Following</h3>
+                        <Input icon='users' iconPosition='left' placeholder='Search users...' onChange={this.handleSearchFollowees}/>
+                        {this.renderFolowees()}
+                    </Grid.Column>
+                    <Grid.Column>
+                        <h3>Followers</h3>
+                        <Input icon='users' iconPosition='left' placeholder='Search users...' onChange={this.handleSearchFollowers}/>
+                        {this.renderFolowers()}
+                    </Grid.Column>
+                </Grid>
             </div>
         )
     }

@@ -12,8 +12,10 @@ class MyProfile extends React.Component{
         console.log('clikced')
     }
 
+
+
     render(){
-        console.log(this.props)
+        console.log(this.props.user.currentUser.followers)
         return(
             <div>
                 <div>
@@ -31,9 +33,9 @@ class MyProfile extends React.Component{
                                     </Card.Description>
                                 </Card.Content>
                                 <Card.Content extra>
-                                    <a>
+                                    <a href='/friendsList'>
                                         <Icon name='user' />
-                                            22 Friends
+                                            {this.props.user.currentUser.followers.length} Followers
                                     </a>
                                 </Card.Content>
                             </Card>
@@ -45,10 +47,6 @@ class MyProfile extends React.Component{
                         <Menu secondary vertical>
                                 <Menu.Item
                                 name='edit profile'
-                                onClick={this.handleItemClick}
-                                />
-                                <Menu.Item
-                                name='my friedns'
                                 onClick={this.handleItemClick}
                                 />
                             </Menu>

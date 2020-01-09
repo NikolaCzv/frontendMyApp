@@ -1,5 +1,6 @@
 export default function auth(state = {
-    followees: []
+    followees: [],
+    followers: []
   }, action) {
       switch (action.type) {
         case 'USER_LOGIN':
