@@ -18,7 +18,7 @@ export const login = user => {
             body: JSON.stringify(user)
           } 
 
-        fetch('http://localhost:3000/api/v1/users', reqObj)
+        fetch('http://localhost:3000/api/v1/login', reqObj)
         .then(resp => resp.json())
         .then(userData => {
             if(userData.error){
