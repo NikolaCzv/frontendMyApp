@@ -9,12 +9,24 @@ class Navbar extends React.Component {
         activeItem: 'dashboard' 
     }
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    handleItemClick = (e, { name }) => {
+        this.setState({ activeItem: name })
+    }
 
     handleSignOut = () => {
         this.props.signout()
         history.push('/login')
         localStorage.clear()
+    }
+
+    handleMyProfile = (e, { name }) => {
+        history.push('/myProfile')
+        this.setState({ activeItem: name })
+    }
+
+    handleDashboardClick = (e, { name }) => {
+        history.push('/dashboard')
+        this.setState({ activeItem: name })
     }
 
 
@@ -26,12 +38,12 @@ class Navbar extends React.Component {
             <Menu.Item
                 name='dashboard'
                 active={activeItem === 'dashboard'}
-                onClick={this.handleItemClick}
+                onClick={this.handleDashboardClick}
             />
             <Menu.Item
-              name='my profile'
-              active={activeItem === 'my profile'}
-              onClick={this.handleItemClick}
+              name='myProfile'
+              active={activeItem === 'myProfile'}
+              onClick={this.handleMyProfile}
             />
             <Menu.Item
               name='add post'

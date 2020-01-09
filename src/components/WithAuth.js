@@ -19,7 +19,7 @@ export default function WithAuth(WrappedComponent) {
         }
 
         render(){
-            return <WrappedComponent />
+            return <WrappedComponent {...this.props} />
         }
     }
 

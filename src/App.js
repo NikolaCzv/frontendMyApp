@@ -4,6 +4,7 @@ import login from './components/Login'
 import dashboard from './components/Dashboard'
 import signUp from './components/SignUp'
 import history from './actions/history'
+import myProfile from './components/MyProfile'
 
 
 class App extends React.Component {
@@ -16,6 +17,7 @@ class App extends React.Component {
             < Route exact path='/login' component={login} />
             < Route exact path='/dashboard' component={dashboard} />
             < Route exact path='/signup' component={signUp} />
+            < Route exact path='/myProfile' component={myProfile} />
         </Router>
       </div>
     );
