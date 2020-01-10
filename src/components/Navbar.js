@@ -21,17 +21,18 @@ class Navbar extends React.Component {
 
     handleMyProfile = (e, { name }) => {
         history.push('/myProfile')
-        this.setState({ activeItem: name })
     }
 
     handleDashboardClick = (e, { name }) => {
         history.push('/dashboard')
-        this.setState({ activeItem: name })
     }
 
     handleFriendButton = (e, {name}) => {
         history.push('/friendsList')
-        this.setState({ activeItem: name })
+    }
+
+    handleFindFriendButton = (e, {name}) => {
+        history.push('/findFriedns')
     }
 
 
@@ -59,6 +60,11 @@ class Navbar extends React.Component {
               name='friends'
               active={activeItem === 'friends'}
               onClick={this.handleFriendButton}
+            />
+            <Menu.Item
+              name='find friends'
+              active={activeItem === 'find friends'}
+              onClick={this.handleFindFriendButton}
             />
             <Menu.Menu position='right'>
                 <Button color='orange'

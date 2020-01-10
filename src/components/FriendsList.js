@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from './Navbar'
 import { connect } from 'react-redux'
 import WithAuth from './WithAuth'
-import { Image, List, Input, Grid, GridColumn } from 'semantic-ui-react'
+import { Image, List, Input, Grid} from 'semantic-ui-react'
 
 class FriendsList extends React.Component {
 

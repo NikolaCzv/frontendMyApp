@@ -15,7 +15,6 @@ class MyProfile extends React.Component{
 
 
     render(){
-        console.log(this.props.user.currentUser.followers)
         return(
             <div>
                 <div>

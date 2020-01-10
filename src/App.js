@@ -6,6 +6,7 @@ import signUp from './components/SignUp'
 import history from './actions/history'
 import myProfile from './components/MyProfile'
 import friendsList from './components/FriendsList'
+import findFriends from './components/FindFriends'
 
 
 class App extends React.Component {
@@ -20,6 +21,7 @@ class App extends React.Component {
             < Route exact path='/dashboard' component={dashboard} />
             < Route exact path='/myProfile' component={myProfile} />
             < Route exact path='/friendsList' component={friendsList} />
+            < Route exact path='/findFriedns' component={findFriends} />
         </Router>
       </div>
     );
