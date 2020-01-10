@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { Input } from 'semantic-ui-react'
-import { allUsers } from '../actions/userLogin'
+import { allUsers ,fetchUser} from '../actions/userLogin'
 import { connect } from  'react-redux'
 import WithAuth from './WithAuth'
 import { Grid, Image, Card, Icon } from 'semantic-ui-react'
@@ -30,13 +30,16 @@ class FindFriends extends React.Component {
         })
     }
 
+    renderUserPage = user => {
+        this.props.fetchUser(user)
+    }
+
     renderUsers = () => {
         const allUsers = this.props.user.currentUser.users.filter(user => user.username.toLowerCase().includes(this.state.searchTerm))
-
         return allUsers.map((user, index) => {
             return (
-                <Grid.Column>
-                <Card key={index}>
+                <Grid.Column key={index}>
+                <Card onClick={() => this.renderUserPage(user)}>
                     <Image src={user.profile_pic_url} wrapped ui={false} />
                         <Card.Content>
                             <Card.Header>{user.username}</Card.Header>
@@ -73,9 +76,8 @@ class FindFriends extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        allUsers: (users) => {
-            dispatch(allUsers(users))
-        }
+        allUsers: (users) => { dispatch(allUsers(users)) },
+        fetchUser: user => { dispatch(fetchUser(user))}
     }
 }
 

@@ -14,6 +14,13 @@ const usersFetch = (users) => {
     }
 }
 
+ const userPage = user => {
+    return {
+        type: 'SHOW_USER_PAGE',
+        user
+    }
+} 
+
 export const signout = () => {
     return{
         type: 'SIGN_OUT'
@@ -98,12 +105,25 @@ export const allUsers = (currentUser) => {
    
     
     return (dispatch) => {
-        console.log(currentUser)
         fetch('http://localhost:3000/api/v1/users')
         .then(resp => resp.json())
         .then(data => {
             const fetchedUsers = data.filter( user => user.username !== currentUser.username)
             dispatch(usersFetch(fetchedUsers))
+        })
+    }
+}
+
+
+export const fetchUser = (user) => {
+
+    return (dispatch) => {
+        fetch(`http://localhost:3000/api/v1/show_user/${user.id}`)
+        .then(resp => resp.json())
+        .then(data => {
+            console.log(data)
+            dispatch(userPage(user))
+            history.push(`/profile/${user.id}`)       
         })
     }
 }
