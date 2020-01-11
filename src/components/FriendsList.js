@@ -3,6 +3,7 @@ import Navbar from './Navbar'
 import { connect } from 'react-redux'
 import WithAuth from './WithAuth'
 import { Image, List, Input, Grid} from 'semantic-ui-react'
+import { fetchUser } from '../actions/userLogin'
 
 class FriendsList extends React.Component {
 
@@ -23,6 +24,10 @@ class FriendsList extends React.Component {
         })
     }
 
+    renderUserPage = user => {
+        this.props.fetchUser(user)
+    }
+
 
     renderFolowees(){
         const allFollowees = this.props.user.currentUser.followees.filter(followee => followee.username.toLowerCase().includes(this.state.searchTermFollowees))
@@ -30,7 +35,7 @@ class FriendsList extends React.Component {
        return allFollowees.map((follow, index) => {
         return   (
                 <List key={index} animated verticalAlign='middle'>
-                    <List.Item>
+                    <List.Item onClick={() => this.renderUserPage(follow)}>
                         <Image avatar src={follow.profile_pic_url} />
                         <List.Content>
                             <List.Header>{follow.username}</List.Header>
@@ -47,7 +52,7 @@ class FriendsList extends React.Component {
        return allFollowers.map((follow, index) => {
         return   (
                 <List key={index} animated verticalAlign='middle'>
-                    <List.Item>
+                    <List.Item onClick={() => this.renderUserPage(follow)}>
                         <Image avatar src={follow.profile_pic_url} />
                         <List.Content>
                             <List.Header>{follow.username}</List.Header>
@@ -57,8 +62,6 @@ class FriendsList extends React.Component {
                 )
        })
     }
-
-
 
     render(){
 
@@ -90,4 +93,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(WithAuth(FriendsList))
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchUser: user => {dispatch(fetchUser(user))}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(FriendsList))

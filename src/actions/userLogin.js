@@ -118,6 +118,7 @@ export const allUsers = (currentUser) => {
 export const fetchUser = (user) => {
 
     return (dispatch) => {
+        console.log(user)
         fetch(`http://localhost:3000/api/v1/show_user/${user.id}`)
         .then(resp => resp.json())
         .then(data => {

@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from './Navbar'
 import { Grid, Image, Card, Icon, Menu } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import WithAuth from './WithAuth'
 
 class UserShowPage extends React.Component {
 
@@ -64,4 +65,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(UserShowPage)
+export default connect(mapStateToProps)(WithAuth(UserShowPage))

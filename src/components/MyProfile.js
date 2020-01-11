@@ -32,10 +32,8 @@ class MyProfile extends React.Component{
                                     </Card.Description>
                                 </Card.Content>
                                 <Card.Content extra>
-                                    <a href='/friendsList'>
                                         <Icon name='user' />
                                             {this.props.user.currentUser.followers.length} Followers
-                                    </a>
                                 </Card.Content>
                             </Card>
                         </Grid.Column>
