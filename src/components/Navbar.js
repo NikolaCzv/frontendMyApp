@@ -19,19 +19,19 @@ class Navbar extends React.Component {
         localStorage.clear()
     }
 
-    handleMyProfile = (e, { name }) => {
+    handleMyProfile = () => {
         history.push('/myProfile')
     }
 
-    handleDashboardClick = (e, { name }) => {
+    handleDashboardClick = () => {
         history.push('/dashboard')
     }
 
-    handleFriendButton = (e, {name}) => {
+    handleFriendButton = () => {
         history.push('/friendsList')
     }
 
-    handleFindFriendButton = (e, {name}) => {
+    handleFindFriendButton = () => {
         history.push('/findFriedns')
     }
 

@@ -27,6 +27,20 @@ export const signout = () => {
     }
 }
 
+const editUser = (user) => {
+    return{
+        type: 'EDIT_USER',
+        user
+    }
+}
+
+const deleteUser = user => {
+    return{
+        type: 'DELETE_USER',
+        user: user.id
+    }
+}
+
 export const login = user => {
   
      return function(dispatch){
@@ -126,5 +140,39 @@ export const fetchUser = (user) => {
             dispatch(userPage(data))
             history.push(`/profile/${user.id}`)       
         })
+    }
+}
+
+export const editProfile = user => {
+
+    return function(dispatch) {
+        const reqObj = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: user.username,
+                email: user.email,
+                password: user.password
+            })
+        }
+
+        fetch(`http://localhost:3000/api/v1/show_user/${user.id}}`, reqObj)
+        .then(resp => resp.json())
+        .then(data => {dispatch(editUser(data))
+        history.push('/myProfile')
+        })
+    }
+}
+
+
+export const  deleteProfile = (user) => {
+
+    return function(dispatch){
+        fetch(`http://localhost:3000/api/v1/show_user/${user.id}}`, {method: 'DELETE'})
+        .then(resp => resp.json())
+        .then(data => dispatch(deleteUser(data)))
+        history.push('/login')
     }
 }

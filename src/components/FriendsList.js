@@ -3,13 +3,25 @@ import Navbar from './Navbar'
 import { connect } from 'react-redux'
 import WithAuth from './WithAuth'
 import { Image, List, Input, Grid} from 'semantic-ui-react'
-import { fetchUser } from '../actions/userLogin'
+import { fetchUser, allUsers } from '../actions/userLogin'
 
 class FriendsList extends React.Component {
 
     state = {
         searchTermFollowees: '',
         searchTermFollowers: ''
+    }
+
+    componentDidMount = () => {
+        if(this.props.user.currentUser.id){
+            this.props.allUsers(this.props.user.currentUser)
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if(!prevProps.user.currentUser.id && this.props.user.currentUser.id){
+            this.props.allUsers(this.props.user.currentUser)
+        }
     }
 
     handleSearchFollowees = (event) => {
@@ -95,7 +107,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchUser: user => {dispatch(fetchUser(user))}
+        fetchUser: user => {dispatch(fetchUser(user))},
+        allUsers: user => {dispatch(allUsers(user))}
     }
 }
 

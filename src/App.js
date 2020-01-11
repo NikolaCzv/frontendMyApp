@@ -9,7 +9,7 @@ import friendsList from './components/FriendsList'
 import findFriends from './components/FindFriends'
 import { connect } from 'react-redux'
 import userShowPage from './components/UserShowPage'
-
+import editProfile from './components/EditProfile'
 
 class App extends React.Component {
 
@@ -25,6 +25,7 @@ class App extends React.Component {
             < Route exact path='/friendsList' component={friendsList} />
             < Route exact path='/findFriedns' component={findFriends} />
             < Route exact path={`/profile/${this.props.user.currentUser.showUser}`} component={userShowPage} />
+            < Route exact path='/editProfile' component={editProfile} />
         </Router>
       </div>
     );

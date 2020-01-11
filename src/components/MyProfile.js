@@ -8,8 +8,8 @@ class MyProfile extends React.Component{
 
     state = { activeItem: '' }
 
-    handleItemClick = () => {
-        console.log('clikced')
+    editProfile = () => {
+        this.props.history.push('/editProfile')
     }
 
 
@@ -31,9 +31,11 @@ class MyProfile extends React.Component{
                                         Contact: {this.props.user.currentUser.email}
                                     </Card.Description>
                                 </Card.Content>
-                                <Card.Content extra>
+                                <Card.Content extra> 
+                                    <a href='/friendsList'>
                                         <Icon name='user' />
                                             {this.props.user.currentUser.followers.length} Followers
+                                    </a>
                                 </Card.Content>
                             </Card>
                         </Grid.Column>
@@ -44,7 +46,7 @@ class MyProfile extends React.Component{
                         <Menu secondary vertical>
                                 <Menu.Item
                                 name='edit profile'
-                                onClick={this.handleItemClick}
+                                onClick={this.editProfile}
                                 />
                             </Menu>
                         </Grid.Column>
