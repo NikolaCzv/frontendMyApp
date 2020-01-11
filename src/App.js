@@ -7,6 +7,8 @@ import history from './actions/history'
 import myProfile from './components/MyProfile'
 import friendsList from './components/FriendsList'
 import findFriends from './components/FindFriends'
+import { connect } from 'react-redux'
+import userShowPage from './components/UserShowPage'
 
 
 class App extends React.Component {
@@ -22,10 +24,17 @@ class App extends React.Component {
             < Route exact path='/myProfile' component={myProfile} />
             < Route exact path='/friendsList' component={friendsList} />
             < Route exact path='/findFriedns' component={findFriends} />
+            < Route exact path={`/profile/${this.props.user.currentUser.showUser}`} component={userShowPage} />
         </Router>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    user: state
+  }
+}
+
+export default connect(mapStateToProps)(App);

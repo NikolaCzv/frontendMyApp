@@ -122,7 +122,7 @@ export const fetchUser = (user) => {
         .then(resp => resp.json())
         .then(data => {
             console.log(data)
-            dispatch(userPage(user))
+            dispatch(userPage(data))
             history.push(`/profile/${user.id}`)       
         })
     }
