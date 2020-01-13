@@ -22,9 +22,9 @@ export default function auth(state = initialState, action) {
         case 'DELETE_NOTE':
           return {...state, users: state.users.filter(user => user.id !== action.user)}
         case 'ADD_FOLLOWER':
-          console.log(state)
-          console.log(action)
-          // return {...state, followees: [...action.user]}
+          if(!state.followees.find(user => user.id === action.follow.followee_id)){
+          let addFollowee = state.users.find(user => user.id === action.follow.followee_id) 
+          return {...state, followees: [...state.followees, addFollowee]}}
         default:
           return state
       }

@@ -7,9 +7,8 @@ import { addFollower } from '../actions/userLogin'
 
 class UserShowPage extends React.Component {
 
-
-    handleFollowBtn = user => {
-        this.props.addFollower(user.id)
+    handleFollowBtn = (userId, followeeId) => {
+        this.props.addFollower(userId, followeeId)
     }
 
 
@@ -51,7 +50,8 @@ class UserShowPage extends React.Component {
                                     :
                                     <Menu.Item
                                     name='follow'
-                                    onClick={() => this.handleFollowBtn(this.props.user.currentUser.id)}
+                                    onClick={() => {
+                                        this.handleFollowBtn(this.props.user.currentUser.id, presentUser.id)}}
                                     />
 
                                     }
@@ -72,7 +72,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        addFollower: follow => {dispatch(addFollower(follow))}
+        addFollower: (userId, followeeId) => {dispatch(addFollower(userId, followeeId))}
     }
 }
 

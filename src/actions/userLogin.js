@@ -41,11 +41,10 @@ const deleteUser = user => {
     }
 }
 
-const follower = (user, showUser) => {
+const follower = follow => {
     return {
         type: 'ADD_FOLLOWER',
-        follower_id: user.id,
-        followee_id: showUser.id
+        follow
     }
 }
 
@@ -186,8 +185,7 @@ export const  deleteProfile = (user) => {
     }
 }
 
-export const addFollower = (follow) => {
-
+export const addFollower = (userId, followeeId) => {
     return function(dispatch){
 
         const reqObj = {
@@ -195,17 +193,17 @@ export const addFollower = (follow) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(follow)
+            body: JSON.stringify({
+                followee_id: followeeId,
+                follower_id: userId
+            })
         }
 
         fetch('http://localhost:3000/api/v1/follows', reqObj)
         .then(resp => resp.json())
         .then(data => {
-            console.log(data)
             dispatch(follower(data))
-            history.push('/myProfile')
+            history.push(`/profile/${followeeId}`)
         })
-        .catch(error => console.log(error))
-
     }
 }
