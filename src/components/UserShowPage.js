@@ -1,11 +1,15 @@
 import React from 'react'
 import Navbar from './Navbar'
-import { Grid, Image, Card, Icon, Menu } from 'semantic-ui-react'
+import { Grid, Image, Card, Icon, Menu, Header } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import WithAuth from './WithAuth'
 import { addFollower, unfollowUser } from '../actions/follow'
 
 class UserShowPage extends React.Component {
+
+    state = {
+        presentUser: this.props.user.currentUser.users.find( user => user.id === this.props.user.currentUser.showUser)
+    }
 
     handleFollowBtn = (userId, followeeId) => {
         this.props.addFollower(userId, followeeId)
@@ -15,9 +19,15 @@ class UserShowPage extends React.Component {
         this.props.unfollowUser(followeeId, followerId)
     }
 
+    renderPosts = () => {
+        return this.state.presentUser.posts.map((post, index) => {
+            return <Card key={index} image={post.pic_url} />
+        })
+    }
 
     render(){
-        const presentUser = this.props.user.currentUser.users.find( user => user.id === this.props.user.currentUser.showUser)
+        // const presentUser = this.props.user.currentUser.users.find( user => user.id === this.props.user.currentUser.showUser)
+        console.log(this.state.presentUser)
         return(
             <div>
                 <div>
@@ -27,35 +37,41 @@ class UserShowPage extends React.Component {
                     <Grid>
                         <Grid.Column width={4}>
                             <Card>
-                                <Image src={presentUser.profile_pic_url}  wrapped ui={false} />
+                                <Image src={this.state.presentUser.profile_pic_url}  wrapped ui={false} />
                                     <Card.Content>
-                                        <Card.Header>{presentUser.username}</Card.Header>
+                                        <Card.Header>{this.state.presentUser.username}</Card.Header>
                                             <Card.Description>
-                                                Contact: {presentUser.email}
+                                                Contact: {this.state.presentUser.email}
                                             </Card.Description>
                                     </Card.Content>
                                      <Card.Content extra>
                                             <Icon name='user' />
-                                            {this.props.user.currentUser.followees.find(u => u.username === presentUser.username ) ?
+                                            {this.props.user.currentUser.followees.find(u => u.username === this.state.presentUser.username ) ?
                                                 'Following ✅' : 'Not Following' }
                                     </Card.Content>
                             </Card>
                         </Grid.Column>
-                            <Grid.Column width={9}>
-                                <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-                            </Grid.Column>
+                        <Grid.Column width={9}>
+                        <Header as='h3'> Posts </Header>
+                        <Header as='h3'></Header>
+                                <Grid relaxed='very' columns={3}>
+                                        <Card.Group itemsPerRow={3}>
+                                            {this.renderPosts()}
+                                        </Card.Group>
+                                </Grid>
+                        </Grid.Column>
                             <Grid.Column width={3}>
                                 <Menu secondary vertical>
-                                    {this.props.user.currentUser.followees.find(u => u.username === presentUser.username) ? 
+                                    {this.props.user.currentUser.followees.find(u => u.username === this.state.presentUser.username) ? 
                                     <Menu.Item
                                         name='unfollow'
-                                        onClick={() => this.handleUnfollowBtn(presentUser.id, this.props.user.currentUser.id)}
+                                        onClick={() => this.handleUnfollowBtn(this.state.presentUser.id, this.props.user.currentUser.id)}
                                         />
                                     :
                                     <Menu.Item
                                     name='follow'
                                     onClick={() => {
-                                        this.handleFollowBtn(this.props.user.currentUser.id, presentUser.id)}}
+                                        this.handleFollowBtn(this.props.user.currentUser.id, this.state.presentUser.id)}}
                                     />
 
                                     }

@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { connect } from 'react-redux'
-import { Grid, Image, Card, Icon, Menu } from 'semantic-ui-react'
+import { Grid, Image, Card, Icon, Menu, Header} from 'semantic-ui-react'
 import WithAuth from './WithAuth'
 
 class MyProfile extends React.Component{
@@ -10,6 +10,12 @@ class MyProfile extends React.Component{
 
     editProfile = () => {
         this.props.history.push('/editProfile')
+    }
+
+    renderPosts = () => {
+        return this.props.user.currentUser.posts.map((post, index) => {
+            return     <Card key={index} image={post.pic_url} />
+        })
     }
 
 
@@ -22,7 +28,7 @@ class MyProfile extends React.Component{
                 </div>
                 <div>
                     <Grid>
-                        <Grid.Column width={4}>
+                        <Grid.Column width={3}>
                             <Card>
                                 <Image src={this.props.user.currentUser.profile_pic_url} wrapped ui={false} />
                                 <Card.Content>
@@ -40,7 +46,13 @@ class MyProfile extends React.Component{
                             </Card>
                         </Grid.Column>
                         <Grid.Column width={9}>
-                            <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+                        <Header as='h3'>My Posts</Header>
+                        <Header as='h3'></Header>
+                            <Grid relaxed='very' columns={3}>
+                                    <Card.Group itemsPerRow={3}>
+                                        {this.renderPosts()}
+                                    </Card.Group>
+                            </Grid>
                         </Grid.Column>
                         <Grid.Column width={3}>
                         <Menu secondary vertical>

@@ -1,4 +1,5 @@
 const initialState = {
+  posts: [], 
   followees: [],
   followers: [],
   users: [],
@@ -26,8 +27,6 @@ export default function auth(state = initialState, action) {
           let addFollowee = state.users.find(user => user.id === action.follow.followee_id) 
           return {...state, followees: [...state.followees, addFollowee]}}
         case 'UNFOLLOW': 
-        console.log('state', state)
-        console.log('action', action)
         return {...state, followees: state.followees.filter(f => f.id !== action.followeeId)}
         default:
           return state

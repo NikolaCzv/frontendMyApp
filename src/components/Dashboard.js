@@ -7,8 +7,14 @@ class Dashboard extends React.Component {
     render(){
 
         return (
+
           <div>
-            < Navbar />
+            <div>
+              < Navbar />
+            </div>
+            <div>
+              
+            </div>
           </div>
         )
     }
