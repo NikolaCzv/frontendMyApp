@@ -3,13 +3,18 @@ import Navbar from './Navbar'
 import { Grid, Image, Card, Icon, Menu } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import WithAuth from './WithAuth'
+import { addFollower } from '../actions/userLogin'
 
 class UserShowPage extends React.Component {
 
 
+    handleFollowBtn = user => {
+        this.props.addFollower(user.id)
+    }
+
+
     render(){
         const presentUser = this.props.user.currentUser.users.find( user => user.id === this.props.user.currentUser.showUser)
-        console.log(presentUser)
         return(
             <div>
                 <div>
@@ -46,7 +51,7 @@ class UserShowPage extends React.Component {
                                     :
                                     <Menu.Item
                                     name='follow'
-                                    onClick={() => console.log('unfollow')}
+                                    onClick={() => this.handleFollowBtn(this.props.user.currentUser.id)}
                                     />
 
                                     }
@@ -65,4 +70,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(WithAuth(UserShowPage))
+const mapDispatchToProps = dispatch => {
+    return{
+        addFollower: follow => {dispatch(addFollower(follow))}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(UserShowPage))

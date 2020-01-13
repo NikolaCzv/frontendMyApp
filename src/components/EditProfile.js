@@ -9,12 +9,11 @@ class EditProfile extends React.Component{
     state = {
         username: this.props.user.currentUser.username,
         email: this.props.user.currentUser.email,
-        password: '',
-        password_confirmation: ''
+        id: this.props.user.currentUser.id
     }
 
-    handleSubmit = user => {
-        this.props.editProfile(user)
+    handleSubmit = () => {
+        this.props.editProfile(this.state)
     }
 
     handleChange = event => {
@@ -28,7 +27,6 @@ class EditProfile extends React.Component{
     }
 
     render(){
-        console.log(this.props.user.currentUser)
         return (
             <div>
                 <div>
@@ -44,7 +42,7 @@ class EditProfile extends React.Component{
                         <Header as='h2' color='green' textAlign='center'>
                             Edit Your Profile
                         </Header>
-                        <Form onSubmit={() => this.handleSubmit(this.props.user.currentUser)}>
+                        <Form onSubmit={this.handleSubmit}>
                             <Form.Field>
                             <label>Username</label>
                             <input value={this.state.username}
@@ -64,24 +62,8 @@ class EditProfile extends React.Component{
                                     pointing: 'below',
                                         }}/>
                             </Form.Field>
-                            <Form.Field>
-                            <label>Password</label>
-                            <input placeholder='Password' 
-                            type='password'
-                            name='password'
-                            onChange={this.handleChange}
-                            />
-                            </Form.Field>
-                            <Form.Field>
-                            <label>Confirm Password</label>
-                            <input placeholder='Password Confirmation' 
-                            type='password'
-                            name='password_confirmation'
-                            onChange={this.handleChange}
-                            />
-                            </Form.Field>
-                            
                             <Button type='submit' color='green' fluid size='large'>Submit</Button><br></br>
+                            <Button color='orange' fluid size='large'>Change password</Button><br></br>
                             <Button onClick={() => this.handleDeleteBtn(this.props.user.currentUser)} fluid size='large'>Delete Profile</Button>
                         </Form>
                     </Grid.Column>

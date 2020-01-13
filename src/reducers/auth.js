@@ -18,9 +18,13 @@ export default function auth(state = initialState, action) {
         case 'EDIT_USER':
           let index = state.users.findIndex(user => user.id === action.user.id)
           state.users[index] = action.user
-          return { ...state, users: [...state.users]}
+          return { ...state, user: [...state.users]}
         case 'DELETE_NOTE':
           return {...state, users: state.users.filter(user => user.id !== action.user)}
+        case 'ADD_FOLLOWER':
+          console.log(state)
+          console.log(action)
+          // return {...state, followees: [...action.user]}
         default:
           return state
       }

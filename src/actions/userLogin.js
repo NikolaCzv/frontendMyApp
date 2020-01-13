@@ -41,6 +41,14 @@ const deleteUser = user => {
     }
 }
 
+const follower = (user, showUser) => {
+    return {
+        type: 'ADD_FOLLOWER',
+        follower_id: user.id,
+        followee_id: showUser.id
+    }
+}
+
 export const login = user => {
   
      return function(dispatch){
@@ -154,14 +162,15 @@ export const editProfile = user => {
             body: JSON.stringify({
                 username: user.username,
                 email: user.email,
-                password: user.password
+                id: user.id
             })
         }
 
-        fetch(`http://localhost:3000/api/v1/show_user/${user.id}}`, reqObj)
+        fetch(`http://localhost:3000/api/v1/show_user/${user.id}`, reqObj)
         .then(resp => resp.json())
-        .then(data => {dispatch(editUser(data))
-        history.push('/myProfile')
+        .then(data => {
+            dispatch(editUser(data))
+            history.push('/myProfile')
         })
     }
 }
@@ -174,5 +183,29 @@ export const  deleteProfile = (user) => {
         .then(resp => resp.json())
         .then(data => dispatch(deleteUser(data)))
         history.push('/login')
+    }
+}
+
+export const addFollower = (follow) => {
+
+    return function(dispatch){
+
+        const reqObj = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(follow)
+        }
+
+        fetch('http://localhost:3000/api/v1/follows', reqObj)
+        .then(resp => resp.json())
+        .then(data => {
+            console.log(data)
+            dispatch(follower(data))
+            history.push('/myProfile')
+        })
+        .catch(error => console.log(error))
+
     }
 }
