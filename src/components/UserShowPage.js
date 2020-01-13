@@ -3,12 +3,16 @@ import Navbar from './Navbar'
 import { Grid, Image, Card, Icon, Menu } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import WithAuth from './WithAuth'
-import { addFollower } from '../actions/userLogin'
+import { addFollower, unfollowUser } from '../actions/follow'
 
 class UserShowPage extends React.Component {
 
     handleFollowBtn = (userId, followeeId) => {
         this.props.addFollower(userId, followeeId)
+    }
+
+    handleUnfollowBtn = (followeeId, followerId) => {
+        this.props.unfollowUser(followeeId, followerId)
     }
 
 
@@ -45,7 +49,7 @@ class UserShowPage extends React.Component {
                                     {this.props.user.currentUser.followees.find(u => u.username === presentUser.username) ? 
                                     <Menu.Item
                                         name='unfollow'
-                                        onClick={() => console.log('follow')}
+                                        onClick={() => this.handleUnfollowBtn(presentUser.id, this.props.user.currentUser.id)}
                                         />
                                     :
                                     <Menu.Item
@@ -72,7 +76,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        addFollower: (userId, followeeId) => {dispatch(addFollower(userId, followeeId))}
+        addFollower: (userId, followeeId) => {dispatch(addFollower(userId, followeeId))},
+        unfollowUser: (followeeId, followerId)=> {dispatch(unfollowUser(followeeId, followerId))}
     }
 }
 

@@ -14,7 +14,7 @@ const usersFetch = (users) => {
     }
 }
 
- const userPage = user => {
+ const userPage = (user) => {
     return {
         type: 'SHOW_USER_PAGE',
         user
@@ -38,13 +38,6 @@ const deleteUser = user => {
     return{
         type: 'DELETE_USER',
         user: user.id
-    }
-}
-
-const follower = follow => {
-    return {
-        type: 'ADD_FOLLOWER',
-        follow
     }
 }
 
@@ -139,11 +132,9 @@ export const allUsers = (currentUser) => {
 export const fetchUser = (user) => {
 
     return (dispatch) => {
-        console.log(user)
         fetch(`http://localhost:3000/api/v1/show_user/${user.id}`)
         .then(resp => resp.json())
         .then(data => {
-            console.log(data)
             dispatch(userPage(data))
             history.push(`/profile/${user.id}`)       
         })
@@ -185,25 +176,3 @@ export const  deleteProfile = (user) => {
     }
 }
 
-export const addFollower = (userId, followeeId) => {
-    return function(dispatch){
-
-        const reqObj = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                followee_id: followeeId,
-                follower_id: userId
-            })
-        }
-
-        fetch('http://localhost:3000/api/v1/follows', reqObj)
-        .then(resp => resp.json())
-        .then(data => {
-            dispatch(follower(data))
-            history.push(`/profile/${followeeId}`)
-        })
-    }
-}
