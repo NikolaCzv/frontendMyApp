@@ -3,7 +3,9 @@ const initialState = {
   followees: [],
   followers: [],
   users: [],
-  showUser: undefined
+  showUser: undefined,
+  liked_posts: [],
+  commented_posts: []
 }
 
 export default function auth(state = initialState, action) {
@@ -30,6 +32,9 @@ export default function auth(state = initialState, action) {
         return {...state, followees: state.followees.filter(f => f.id !== action.followeeId)}
         case 'USER_FOLLOWEES': 
         return {...state, followees: [...action.followees]}
+        case 'ADD_LIKE':
+          if(state.id !== action.like.user_id){
+            return {...state, liked_posts: [...state.liked_posts, action.like]}}
         default:
           return state
       }

@@ -19,6 +19,7 @@ class FindFriends extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState){
+
         if(!prevProps.user.currentUser.id && this.props.user.currentUser.id){
             this.props.allUsers(this.props.user.currentUser)
         }

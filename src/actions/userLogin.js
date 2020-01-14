@@ -42,6 +42,7 @@ const deleteUser = user => {
 }
 
 const getFollowees = followees => {
+    console.log(followees)
     return {
         type: 'USER_FOLLOWEES',
         followees   

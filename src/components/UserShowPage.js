@@ -26,8 +26,6 @@ class UserShowPage extends React.Component {
     }
 
     render(){
-        // const presentUser = this.props.user.currentUser.users.find( user => user.id === this.props.user.currentUser.showUser)
-        console.log(this.state.presentUser)
         return(
             <div>
                 <div>
