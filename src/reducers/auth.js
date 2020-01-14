@@ -28,6 +28,8 @@ export default function auth(state = initialState, action) {
           return {...state, followees: [...state.followees, addFollowee]}}
         case 'UNFOLLOW': 
         return {...state, followees: state.followees.filter(f => f.id !== action.followeeId)}
+        case 'USER_FOLLOWEES': 
+        return {...state, followees: [...action.followees]}
         default:
           return state
       }

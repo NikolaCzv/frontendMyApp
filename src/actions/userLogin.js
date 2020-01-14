@@ -41,6 +41,13 @@ const deleteUser = user => {
     }
 }
 
+const getFollowees = followees => {
+    return {
+        type: 'USER_FOLLOWEES',
+        followees   
+    }
+}
+
 export const login = user => {
   
      return function(dispatch){
@@ -85,6 +92,7 @@ export const checkUser = token => {
             if(userData.error){
                 this.props.history.push('/login')
             } else {
+                console.log(userData)
                 dispatch(userLogin(userData))
             }
         })
@@ -178,3 +186,12 @@ export const  deleteProfile = (user) => {
     }
 }
 
+
+export const userFollowees = (user) => {
+
+    return function(dispatch){
+        fetch(`http://localhost:3000/api/v1/users/${user.id}/user_followees`)
+        .then(resp => resp.json())
+        .then(data => dispatch(getFollowees(data)))
+    }
+}
