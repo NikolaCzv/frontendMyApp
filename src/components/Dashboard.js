@@ -2,18 +2,19 @@ import React from 'react'
 import WithAuth from './WithAuth'
 import Navbar from './Navbar'
 import { connect } from 'react-redux'
-import { userFollowees, fetchUser } from '../actions/userLogin'
+import { userFollowees, fetchUser, allUsers } from '../actions/userLogin'
 import { Image, Divider, Header, Grid, Label} from 'semantic-ui-react'
 
 class Dashboard extends React.Component {
 
   componentDidMount(){
     this.props.userFollowees(this.props.user.currentUser)
+    this.props.allUsers(this.props.user.currentUser)
   }
 
   componentDidUpdate(prevProps, prevState){
     if(!prevProps.user.currentUser.id && this.props.user.currentUser.id){
-        this.props.userFollowees(this.props.user.currentUser)
+        this.props.allUsers(this.props.user.currentUser)
     }
 }
 
@@ -79,7 +80,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return{
     userFollowees: user => {dispatch(userFollowees(user))},
-    fetchUser: user => {dispatch(fetchUser(user))}
+    fetchUser: user => {dispatch(fetchUser(user))},
+    allUsers: user => {dispatch(allUsers(user))}
   }
 }
 
