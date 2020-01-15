@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { Input } from 'semantic-ui-react'
-import { allUsers ,fetchUser} from '../actions/userLogin'
+import { allUsers ,fetchUser, userFollowees} from '../actions/userLogin'
 import { connect } from  'react-redux'
 import WithAuth from './WithAuth'
 import { Grid, Image, Card, Icon } from 'semantic-ui-react'
@@ -15,6 +15,7 @@ class FindFriends extends React.Component {
     componentDidMount = () => {
         if(this.props.user.currentUser.id){
             this.props.allUsers(this.props.user.currentUser)
+            this.props.userFollowees(this.props.user.currentUser)
         }
     }
 
@@ -22,6 +23,7 @@ class FindFriends extends React.Component {
 
         if(!prevProps.user.currentUser.id && this.props.user.currentUser.id){
             this.props.allUsers(this.props.user.currentUser)
+            this.props.userFollowees(this.props.user.currentUser)
         }
     }
 
@@ -78,7 +80,9 @@ class FindFriends extends React.Component {
 const mapDispatchToProps = dispatch => {
     return {
         allUsers: (users) => { dispatch(allUsers(users)) },
-        fetchUser: user => { dispatch(fetchUser(user))}
+        fetchUser: user => { dispatch(fetchUser(user))},
+        userFollowees: user => { dispatch(userFollowees(user))}
+        
     }
 }
 

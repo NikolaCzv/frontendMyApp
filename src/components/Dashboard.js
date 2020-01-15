@@ -33,6 +33,10 @@ handleUnlikeBtn = (userId, postId) => {
 }
 
   renderFolloweesPosts = () => {
+  
+
+    // create a new array that is each followees posts 
+    // renderPosts with argument being thenew array 
     return this.props.user.currentUser.followees.map((user, index) => {
       return (
         <div key={index}>
@@ -52,19 +56,25 @@ handleUnlikeBtn = (userId, postId) => {
       return(  
         <div key={index}>
           <Header as='h3'>{post.text}</Header>
-            <Image src={post.pic_url} size='big' /> {post.likes}
+            <Image src={post.pic_url} size='big' />
             {this.props.user.currentUser.liked_posts.find(liked_post => {
                   return post.id === liked_post.id
               }) ? 
-              <Button size='mini'
-              name='unlike'
-              onClick={() => this.handleUnlikeBtn(this.props.user.currentUser.id, post.id)}
-              > ❤️ </Button>
+              <div>
+                <Button size='mini'
+                name='unlike'
+                onClick={() => this.handleUnlikeBtn(this.props.user.currentUser.id, post.id)}
+                > ❤️ </Button>
+                Likes: {post.likes}
+              </div>
               :
-              <Button
-              name='like'
-              onClick={ () => this.handleLikeBtn(this.props.user.currentUser.id, post.id)}
-              size='mini'> ♡ </Button>
+              <div>
+                <Button
+                name='like'
+                onClick={ () => this.handleLikeBtn(this.props.user.currentUser.id, post.id)}
+                size='mini'> ♡ </Button>
+                Likes: {post.likes}
+              </div>
             }
             <Divider hidden />
         </div>

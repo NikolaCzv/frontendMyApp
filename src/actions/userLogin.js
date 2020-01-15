@@ -15,6 +15,7 @@ const usersFetch = (users) => {
 }
 
  const userPage = (user) => {
+
     return {
         type: 'SHOW_USER_PAGE',
         user
@@ -148,6 +149,17 @@ export const fetchUser = (user) => {
         .then(data => {
             dispatch(userPage(data))
             history.push(`/profile/${user.id}`)       
+        })
+    }
+}
+
+export const showUserPage = (userId) => {
+    return (dispatch) => {
+        fetch(`http://localhost:3000/api/v1/show_user/${userId}`)
+        .then(resp => resp.json())
+        .then(data => {
+            dispatch(userPage(data))
+            // history.push(`/profile/${userId}`)       
         })
     }
 }

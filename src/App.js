@@ -24,7 +24,7 @@ class App extends React.Component {
             < Route exact path='/myProfile' component={myProfile} />
             < Route exact path='/friendsList' component={friendsList} />
             < Route exact path='/findFriedns' component={findFriends} />
-            < Route exact path={`/profile/${this.props.user.currentUser.showUser}`} component={userShowPage} />
+            < Route exact path={`/profile/:id`} component={userShowPage} />
             < Route exact path='/editProfile' component={editProfile} />
         </Router>
       </div>
