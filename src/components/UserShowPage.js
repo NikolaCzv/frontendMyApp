@@ -47,7 +47,6 @@ class UserShowPage extends React.Component {
     }
 
     render(){
-        console.log('show user', this.props.user.currentUser.showUser)
         if (this.state.loading){
             return     <Segment>
                             <Dimmer active inverted>

@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 import { connect } from 'react-redux'
 import WithAuth from './WithAuth'
 import { Image, List, Input, Grid} from 'semantic-ui-react'
-import { fetchUser, allUsers } from '../actions/userLogin'
+import { fetchUser, allUsers, userFollowees } from '../actions/userLogin'
 
 class FriendsList extends React.Component {
 
@@ -15,12 +15,14 @@ class FriendsList extends React.Component {
     componentDidMount = () => {
         if(this.props.user.currentUser.id){
             this.props.allUsers(this.props.user.currentUser)
+            this.props.userFollowees(this.props.user.currentUser)
         }
     }
 
     componentDidUpdate(prevProps, prevState){
         if(!prevProps.user.currentUser.id && this.props.user.currentUser.id){
             this.props.allUsers(this.props.user.currentUser)
+            this.props.userFollowees(this.props.user.currentUser)
         }
     }
 
@@ -108,7 +110,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchUser: user => {dispatch(fetchUser(user))},
-        allUsers: user => {dispatch(allUsers(user))}
+        allUsers: user => {dispatch(allUsers(user))},
+        userFollowees: user => {dispatch(userFollowees(user))}
     }
 }
 

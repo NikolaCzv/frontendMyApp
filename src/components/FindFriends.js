@@ -38,7 +38,7 @@ class FindFriends extends React.Component {
     }
 
     renderUsers = () => {
-        const allUsers = this.props.user.currentUser.users.filter(user => user.username.toLowerCase().includes(this.state.searchTerm))
+        const allUsers = this.props.user.users.allUsers.filter(user => user.username.toLowerCase().includes(this.state.searchTerm))
         return allUsers.map((user, index) => {
             return (
                 <Grid.Column key={index}>
@@ -57,8 +57,6 @@ class FindFriends extends React.Component {
             )
         })
     }
-
-
 
     render(){
         return(

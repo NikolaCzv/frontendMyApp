@@ -9,10 +9,6 @@ class Navbar extends React.Component {
         activeItem: '' 
     }
 
-    handleItemClick = (e, { name }) => {
-        this.setState({ activeItem: name })
-    }
-
     handleSignOut = () => {
         this.props.signout()
         history.push('/login')
@@ -35,6 +31,10 @@ class Navbar extends React.Component {
         history.push('/findFriedns')
     }
 
+    handleAddPostBtn = () => {
+        history.push('/addPost')
+    }
+
 
     render(){
         const { activeItem } = this.state
@@ -54,7 +54,7 @@ class Navbar extends React.Component {
             <Menu.Item
               name='add post'
               active={activeItem === 'add post'}
-              onClick={this.handleItemClick}
+              onClick={this.handleAddPostBtn}
             />
             <Menu.Item
               name='friends'

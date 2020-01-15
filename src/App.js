@@ -10,6 +10,7 @@ import findFriends from './components/FindFriends'
 import { connect } from 'react-redux'
 import userShowPage from './components/UserShowPage'
 import editProfile from './components/EditProfile'
+import addPost from './components/AddPost'
 
 class App extends React.Component {
 
@@ -26,6 +27,7 @@ class App extends React.Component {
             < Route exact path='/findFriedns' component={findFriends} />
             < Route exact path={`/profile/:id`} component={userShowPage} />
             < Route exact path='/editProfile' component={editProfile} />
+            < Route exact path={'/addPost'} component={addPost} />
         </Router>
       </div>
     );

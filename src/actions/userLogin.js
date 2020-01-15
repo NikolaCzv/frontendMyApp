@@ -43,7 +43,6 @@ const deleteUser = user => {
 }
 
 const getFollowees = followees => {
-    console.log(followees)
     return {
         type: 'USER_FOLLOWEES',
         followees   
@@ -94,7 +93,6 @@ export const checkUser = token => {
             if(userData.error){
                 this.props.history.push('/login')
             } else {
-                console.log(userData)
                 dispatch(userLogin(userData))
             }
         })

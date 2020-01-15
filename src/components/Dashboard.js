@@ -53,6 +53,10 @@ handleUnlikeBtn = (userId, postId) => {
 
   renderPosts = posts => {
     return posts.map((post, index) => {
+      console.log(this.props.user.currentUser.liked_posts.map(post => post.id))
+      console.log(post.id)
+
+
       return(  
         <div key={index}>
           <Header as='h3'>{post.text}</Header>
@@ -65,7 +69,6 @@ handleUnlikeBtn = (userId, postId) => {
                 name='unlike'
                 onClick={() => this.handleUnlikeBtn(this.props.user.currentUser.id, post.id)}
                 > ❤️ </Button>
-                Likes: {post.likes}
               </div>
               :
               <div>
@@ -73,7 +76,6 @@ handleUnlikeBtn = (userId, postId) => {
                 name='like'
                 onClick={ () => this.handleLikeBtn(this.props.user.currentUser.id, post.id)}
                 size='mini'> ♡ </Button>
-                Likes: {post.likes}
               </div>
             }
             <Divider hidden />
@@ -88,7 +90,7 @@ handleUnlikeBtn = (userId, postId) => {
             <div>
               < Navbar />
             </div>
-            <div>
+            <div >
             <Grid columns={3}>
                         <Grid.Column>
                         </Grid.Column>

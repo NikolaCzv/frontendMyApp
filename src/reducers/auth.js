@@ -2,7 +2,6 @@ const initialState = {
   posts: [], 
   followees: [],
   followers: [],
-  users: [],
   showUser: {},
   liked_posts: [],
   commented_posts: []
@@ -12,10 +11,10 @@ export default function auth(state = initialState, action) {
       switch (action.type) {
         case 'USER_LOGIN':
           return {...state, ...action.user}
+        case 'SIGN_OUT':
+            return initialState
         case 'ALL_USERS':
           return {...state, users: action.users}
-        case 'SIGN_OUT':
-          return initialState
         case 'SHOW_USER_PAGE':
           return {...state, showUser: action.user }
         case 'EDIT_USER':
@@ -33,8 +32,14 @@ export default function auth(state = initialState, action) {
         case 'USER_FOLLOWEES': 
           return {...state, followees: [...action.followees]}
         case 'ADD_LIKE':
-          if(state.id !== action.like.user_id){
-            return {...state, liked_posts: [...state.liked_posts, action.like]}}
+          function order(posts){
+            return posts.find(post => {
+             return post.id === action.like.post_id
+            })
+          }
+          const searchedUser = state.followees.map(user => order(user.posts))
+          const likedPost = searchedUser.find(user => user)
+            return {...state, liked_posts: [...state.liked_posts, likedPost]}
         case 'UNLIKE':
           return{...state, liked_posts: state.liked_posts.filter(post => post.id !== action.postId)}
         default:
