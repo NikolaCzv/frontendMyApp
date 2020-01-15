@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 import { connect } from 'react-redux'
 import { userFollowees, fetchUser, allUsers } from '../actions/userLogin'
 import { Image, Divider, Header, Grid, Label, Button} from 'semantic-ui-react'
-import { addLike } from '../actions/likes'
+import { addLike, unlikePost } from '../actions/likes'
 
 class Dashboard extends React.Component {  
 
@@ -14,9 +14,6 @@ class Dashboard extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    console.log(!prevProps.user.currentUser.id)
-    console.log(this.props.user.currentUser.id)
-
     if(!prevProps.user.currentUser.id && this.props.user.currentUser.id){
         this.props.allUsers(this.props.user.currentUser)
         this.props.userFollowees(this.props.user.currentUser)
@@ -29,6 +26,10 @@ renderUserPage = user => {
 
 handleLikeBtn = (userId, postId) => {
   this.props.addLike(userId, postId)
+}
+
+handleUnlikeBtn = (userId, postId) => {
+  this.props.unlikePost(userId, postId)
 }
 
   renderFolloweesPosts = () => {
@@ -48,14 +49,23 @@ handleLikeBtn = (userId, postId) => {
 
   renderPosts = posts => {
     return posts.map((post, index) => {
-      const isLiked = this.props.user.currentUser.liked_posts.find(liked_post => {
-        return post.id === liked_post.id
-      })
       return(  
         <div key={index}>
           <Header as='h3'>{post.text}</Header>
             <Image src={post.pic_url} size='big' /> {post.likes}
-            <Button disabled={isLiked} onClick={ () => this.handleLikeBtn(this.props.user.currentUser.id, post.id)}> Like </Button>
+            {this.props.user.currentUser.liked_posts.find(liked_post => {
+                  return post.id === liked_post.id
+              }) ? 
+              <Button size='mini'
+              name='unlike'
+              onClick={() => this.handleUnlikeBtn(this.props.user.currentUser.id, post.id)}
+              > ❤️ </Button>
+              :
+              <Button
+              name='like'
+              onClick={ () => this.handleLikeBtn(this.props.user.currentUser.id, post.id)}
+              size='mini'> ♡ </Button>
+            }
             <Divider hidden />
         </div>
       )
@@ -63,7 +73,6 @@ handleLikeBtn = (userId, postId) => {
   }
 
     render(){
-      console.log(this.props.user.currentUser)
         return (
           <div>
             <div>
@@ -96,7 +105,8 @@ const mapDispatchToProps = dispatch => {
     userFollowees: user => {dispatch(userFollowees(user))},
     fetchUser: user => {dispatch(fetchUser(user))},
     allUsers: user => {dispatch(allUsers(user))},
-    addLike: (userId, postId) => {dispatch(addLike(userId, postId))}
+    addLike: (userId, postId) => {dispatch(addLike(userId, postId))},
+    unlikePost: (userId, postId) => {dispatch(unlikePost(userId, postId))}
   }
 }
 

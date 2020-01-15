@@ -191,8 +191,14 @@ export const  deleteProfile = (user) => {
 export const userFollowees = (user) => {
 
     return function(dispatch){
+        if(user){
         fetch(`http://localhost:3000/api/v1/users/${user.id}/user_followees`)
         .then(resp => resp.json())
         .then(data => dispatch(getFollowees(data)))
+        .catch(err => console.log(err))
+        }
+        else {
+            console.log('error')
+        }
     }
 }

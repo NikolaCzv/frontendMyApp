@@ -26,6 +26,16 @@ class EditProfile extends React.Component{
         this.props.deleteProfile(user)
     }
 
+    // componentDidUpdate(prevProps, prevState){
+    //     if(prevProps !== this.props){
+    //         this.setState({
+    //                 username: this.props.user.currentUser.username,
+    //                 email: this.props.user.currentUser.email,
+    //                 id: this.props.user.currentUser.id
+    //         })
+    //     }
+    // }
+
     render(){
         return (
             <div>

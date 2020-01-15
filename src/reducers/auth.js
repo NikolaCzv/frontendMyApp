@@ -35,6 +35,8 @@ export default function auth(state = initialState, action) {
         case 'ADD_LIKE':
           if(state.id !== action.like.user_id){
             return {...state, liked_posts: [...state.liked_posts, action.like]}}
+        case 'UNLIKE':
+          return{...state, liked_posts: state.liked_posts.filter(post => post.id !== action.postId)}
         default:
           return state
       }
