@@ -43,7 +43,7 @@ class FindFriends extends React.Component {
             return (
                 <Grid.Column key={index}>
                 <Card onClick={() => this.renderUserPage(user)}>
-                    <Image src={user.profile_pic_url} wrapped ui={false} />
+                    <Image src={user.profile_photo} wrapped ui={false} />
                         <Card.Content>
                             <Card.Header>{user.username}</Card.Header>
                         </Card.Content>

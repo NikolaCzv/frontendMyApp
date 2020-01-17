@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar'
-import { Button, Form, Grid, Divider, Image, Header} from 'semantic-ui-react'
+import { Button, Form, Grid, Divider, Image, Header, Input} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { editProfile, deleteProfile } from '../actions/userLogin'
 
@@ -9,10 +9,12 @@ class EditProfile extends React.Component{
     state = {
         username: this.props.user.currentUser.username,
         email: this.props.user.currentUser.email,
-        id: this.props.user.currentUser.id
+        id: this.props.user.currentUser.id,
+        photo: this.props.user.profile_photo
     }
 
-    handleSubmit = () => {
+    handleSubmit = (event) => {
+        event.preventDefault()
         this.props.editProfile(this.state)
     }
 
@@ -26,15 +28,10 @@ class EditProfile extends React.Component{
         this.props.deleteProfile(user)
     }
 
-    // componentDidUpdate(prevProps, prevState){
-    //     if(prevProps !== this.props){
-    //         this.setState({
-    //                 username: this.props.user.currentUser.username,
-    //                 email: this.props.user.currentUser.email,
-    //                 id: this.props.user.currentUser.id
-    //         })
-    //     }
-    // }
+
+    handleFile = (event) => {
+        this.setState({photo: event.currentTarget.files[0]})
+    }
 
     render(){
         return (
@@ -45,15 +42,15 @@ class EditProfile extends React.Component{
                 <div>
                 <Grid textAlign='center'>
                     <Grid.Column style={{ maxWidth: 450 }}>
-                        <Image src={this.props.user.currentUser.profile_pic_url}
-                                size='big'/><br></br>
-                        < Button>Change Photo</Button>
-                        <Divider hidden />
                         <Header as='h2' color='green' textAlign='center'>
                             Edit Your Profile
                         </Header>
+                        <Divider hidden />
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Field>
+                            <Image src={this.props.user.currentUser.profile_photo}
+                                    size='big'/><br></br>
+                            <Input type='file' onChange={this.handleFile}/>
                             <label>Username</label>
                             <input value={this.state.username}
                             name='username'

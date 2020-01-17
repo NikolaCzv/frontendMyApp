@@ -30,7 +30,7 @@ class MyProfile extends React.Component{
                     <Grid>
                         <Grid.Column width={3}>
                             <Card>
-                                <Image src={this.props.user.currentUser.profile_pic_url} wrapped ui={false} />
+                                <Image src={this.props.user.currentUser.profile_photo} wrapped ui={false} />
                                 <Card.Content>
                                     <Card.Header>{this.props.user.currentUser.username}</Card.Header>
                                     <Card.Description>

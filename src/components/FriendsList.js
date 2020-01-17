@@ -50,7 +50,7 @@ class FriendsList extends React.Component {
         return   (
                 <List key={index} animated verticalAlign='middle'>
                     <List.Item onClick={() => this.renderUserPage(follow)}>
-                        <Image avatar src={follow.profile_pic_url} />
+                        <Image avatar src={follow.profile_photo} />
                         <List.Content>
                             <List.Header>{follow.username}</List.Header>
                         </List.Content>
@@ -67,7 +67,7 @@ class FriendsList extends React.Component {
         return   (
                 <List key={index} animated verticalAlign='middle'>
                     <List.Item onClick={() => this.renderUserPage(follow)}>
-                        <Image avatar src={follow.profile_pic_url} />
+                        <Image avatar src={follow.profile_photo} />
                         <List.Content>
                             <List.Header>{follow.username}</List.Header>
                         </List.Content>

@@ -23,7 +23,6 @@ class AddPost extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        // debugger
         this.props.addPost(this.state)
     }
 
@@ -41,8 +40,7 @@ class AddPost extends React.Component {
                         <Form onSubmit={this.handleSubmit}>
                             <Input type='text' placeholder='Add Content...'  value={this.state.text} onChange={this.handleInput}/>
                             <Input type='file' onChange={this.handleFile}/>
-                            <Button color='orange' size='medium'> Upload Photo </Button>
-                            <Button type="submit"> Submit </Button>
+                            <Button type="submit" color='orange'> Submit </Button>
                         </Form>
                     </Grid.Column>
             </Grid>

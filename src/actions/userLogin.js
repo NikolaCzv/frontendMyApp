@@ -155,8 +155,7 @@ export const showUserPage = (userId) => {
         fetch(`http://localhost:3000/api/v1/show_user/${userId}`)
         .then(resp => resp.json())
         .then(data => {
-            dispatch(userPage(data))
-            // history.push(`/profile/${userId}`)       
+            dispatch(userPage(data))       
         })
     }
 }
@@ -164,16 +163,15 @@ export const showUserPage = (userId) => {
 export const editProfile = user => {
 
     return function(dispatch) {
+
+        const formData = new FormData();
+        formData.append('username', user.username)
+        formData.append('email', user.email)
+        formData.append('photo', user.photo)
+
         const reqObj = {
             method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: user.username,
-                email: user.email,
-                id: user.id
-            })
+            body: formData
         }
 
         fetch(`http://localhost:3000/api/v1/show_user/${user.id}`, reqObj)

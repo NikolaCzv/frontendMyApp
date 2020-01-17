@@ -41,7 +41,7 @@ handleUnlikeBtn = (userId, postId) => {
       return (
         <div key={index}>
           <Label as='a' image onClick={() => this.renderUserPage(user)}>
-            <img src={user.profile_pic_url} /> 
+            <img src={user.profile_photo} /> 
             {user.username}
           </Label>
           {this.renderPosts(user.posts)}
@@ -55,7 +55,6 @@ handleUnlikeBtn = (userId, postId) => {
     return posts.map((post, index) => {
       console.log(this.props.user.currentUser.liked_posts.map(post => post.id))
       console.log(post.id)
-
 
       return(  
         <div key={index}>

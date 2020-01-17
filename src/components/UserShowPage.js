@@ -64,7 +64,7 @@ class UserShowPage extends React.Component {
                     <Grid>
                         <Grid.Column width={4}>
                             <Card>
-                                <Image src={ this.props.user.currentUser.showUser.profile_pic_url}  wrapped ui={false} />
+                                <Image src={ this.props.user.currentUser.showUser.profile_photo}  wrapped ui={false} />
                                     <Card.Content>
                                         <Card.Header>{ this.props.user.currentUser.showUser.username}</Card.Header>
                                             <Card.Description>
