@@ -60,7 +60,7 @@ handleUnlikeBtn = (userId, postId) => {
       return(  
         <div key={index}>
           <Header as='h3'>{post.text}</Header>
-            <Image src={post.pic_url} size='big' />
+            <Image src={post.post_photo} size='big' />
             {this.props.user.currentUser.liked_posts.find(liked_post => {
                   return post.id === liked_post.id
               }) ? 

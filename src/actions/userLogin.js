@@ -91,7 +91,7 @@ export const checkUser = token => {
         .then(resp => resp.json())
         .then(userData => {
             if(userData.error){
-                this.props.history.push('/login')
+                history.push('/login')
             } else {
                 dispatch(userLogin(userData))
             }
@@ -101,7 +101,6 @@ export const checkUser = token => {
 
 export const signup = user => {
     return function(dispatch){
-
             const reqObj = {
                 method: 'POST',
                 headers: {

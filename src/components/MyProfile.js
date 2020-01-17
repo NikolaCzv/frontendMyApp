@@ -14,7 +14,7 @@ class MyProfile extends React.Component{
 
     renderPosts = () => {
         return this.props.user.currentUser.posts.map((post, index) => {
-            return     <Card key={index} image={post.pic_url} />
+            return     <Card key={index} image={post.post_photo} />
         })
     }
 

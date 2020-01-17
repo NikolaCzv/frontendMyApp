@@ -42,7 +42,7 @@ class UserShowPage extends React.Component {
 
     renderPosts = () => {
         return this.props.user.currentUser.showUser.posts.map((post, index) => {
-            return <Card key={index} image={post.pic_url} />
+            return <Card key={index} image={post.post_photo} />
         })
     }
 
