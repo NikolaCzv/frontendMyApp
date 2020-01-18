@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Grid, Divider, Image, Header} from 'semantic-ui-react'
+import { Button, Form, Grid, Divider, Image, Header, Container} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { signup } from '../actions/userLogin'
 
@@ -29,7 +29,8 @@ class SignUp extends React.Component {
 
     render(){
         return(
-            <Grid textAlign='center'>
+            <div className='signup'>
+            <Grid textAlign='center' >
                     <Grid.Column style={{ maxWidth: 450 }}>
                         <Image src='http://aweber.design/gifs/images/Sans/Sans-Green-WBG.gif'
                                 size='big' />
@@ -77,7 +78,7 @@ class SignUp extends React.Component {
                         </Form>
                     </Grid.Column>
             </Grid>
-
+            </div>
         )
     }
 }

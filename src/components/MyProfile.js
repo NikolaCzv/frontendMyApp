@@ -1,23 +1,51 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { connect } from 'react-redux'
-import { Grid, Image, Card, Icon, Menu, Header} from 'semantic-ui-react'
+import { Grid, Image, Card, Icon, Menu, Header, Button} from 'semantic-ui-react'
 import WithAuth from './WithAuth'
+import { deletePost } from '../actions/posts'
 
 class MyProfile extends React.Component{
 
-    state = { activeItem: '' }
+    state = { 
+        editBtn: false
+    }
 
     editProfile = () => {
         this.props.history.push('/editProfile')
     }
 
-    renderPosts = () => {
-        return this.props.user.currentUser.posts.map((post, index) => {
-            return     <Card key={index} image={post.post_photo} />
+    editPosts = () => {
+        this.setState({
+            editBtn: !this.state.clicked
         })
     }
 
+    handleDelete = post => {
+        this.props.deletePost(post)
+    }
+
+    renderPosts = () => {
+        return this.props.user.currentUser.posts.map((post, index) => {
+               return <Image height='300' width='300'
+                            key={index} src={post.post_photo} 
+                            bordered
+                            id={post.id}/>
+        })
+    }
+
+    renderPostsDelete = () => {
+        return this.props.user.currentUser.posts.map((post, index) => {
+            return <Grid.Column>
+                        <Image height='250' width='250'
+                            key={index} src={post.post_photo} 
+                            bordered
+                            id={post.id}/>
+                        <Button onClick={() => this.handleDelete(post)}>Delete</Button>
+                    </Grid.Column>
+     })
+
+    }
 
 
     render(){
@@ -48,10 +76,14 @@ class MyProfile extends React.Component{
                         <Grid.Column width={9}>
                         <Header as='h3'>My Posts</Header>
                         <Header as='h3'></Header>
+
                             <Grid relaxed='very' columns={3}>
-                                    <Card.Group itemsPerRow={3}>
-                                        {this.renderPosts()}
-                                    </Card.Group>
+                                        {this.state.editBtn ?
+                                            this.renderPostsDelete()
+                                        :
+                                        <Image.Group columns={3} >
+                                            {this.renderPosts()}
+                                        </Image.Group>}
                             </Grid>
                         </Grid.Column>
                         <Grid.Column width={3}>
@@ -60,6 +92,9 @@ class MyProfile extends React.Component{
                                 name='edit profile'
                                 onClick={this.editProfile}
                                 />
+                                <Menu.Item
+                                name='edit posts'
+                                onClick={this.editPosts}/>
                             </Menu>
                         </Grid.Column>
                     </Grid>
@@ -75,4 +110,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(WithAuth(MyProfile))
+const mapDispatchToProps = dispatch => {
+    return {
+        deletePost: (post) => {dispatch(deletePost(post))}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(MyProfile))

@@ -44,6 +44,7 @@ class FriendsList extends React.Component {
 
 
     renderFolowees(){
+
         const allFollowees = this.props.user.currentUser.followees.filter(followee => followee.username.toLowerCase().includes(this.state.searchTermFollowees))
 
        return allFollowees.map((follow, index) => {
@@ -62,12 +63,12 @@ class FriendsList extends React.Component {
 
     renderFolowers(){
         const allFollowers = this.props.user.currentUser.followers.filter(follower => follower.username.toLowerCase().includes(this.state.searchTermFollowers))
-
+        
        return allFollowers.map((follow, index) => {
         return   (
                 <List key={index} animated verticalAlign='middle'>
                     <List.Item onClick={() => this.renderUserPage(follow)}>
-                        <Image avatar src={follow.profile_photo} />
+                        <Image avatar src={follow.profile_pic_url} />
                         <List.Content>
                             <List.Header>{follow.username}</List.Header>
                         </List.Content>

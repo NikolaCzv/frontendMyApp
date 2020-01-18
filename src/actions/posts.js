@@ -8,8 +8,14 @@ const addPostAction = (post) => {
 
 }
 
+const deletePostAction = (post) => {
+    return {
+        type: "DELETE_POST",
+        post: post.id
+    }
+}
+
 export const addPost = (post) => {
-// debugger
     return function(dispatch){
 
         const formData = new FormData();
@@ -28,8 +34,17 @@ export const addPost = (post) => {
         .then(data => {
             dispatch(addPostAction(data))
             history.push('/myProfile')
-            console.log(data)
         })
         .catch(error => console.log(error))
+    }
+}
+
+
+export const  deletePost = (post) => {
+
+    return function(dispatch){
+        fetch(`http://localhost:3000/api/v1/posts/${post.id}`, {method: 'DELETE'})
+        .then(resp => resp.json())
+        .then(data => dispatch(deletePostAction(data)))
     }
 }

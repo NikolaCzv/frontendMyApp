@@ -42,7 +42,7 @@ class UserShowPage extends React.Component {
 
     renderPosts = () => {
         return this.props.user.currentUser.showUser.posts.map((post, index) => {
-            return <Card key={index} image={post.post_photo} />
+            return <Image height='300' width='300' key={index} src={post.post_photo} bordered/>
         })
     }
 
@@ -81,11 +81,11 @@ class UserShowPage extends React.Component {
                         <Grid.Column width={9}>
                         <Header as='h3'> Posts </Header>
                         <Header as='h3'></Header>
-                                <Grid relaxed='very' columns={3}>
-                                        <Card.Group itemsPerRow={3}>
-                                            {this.renderPosts()}
-                                        </Card.Group>
-                                </Grid>
+                        <Grid relaxed='very' columns={3}>
+                                    <Image.Group columns={3} >
+                                        {this.renderPosts()}
+                                    </Image.Group>
+                            </Grid>
                         </Grid.Column>
                             <Grid.Column width={3}>
                                 <Menu secondary vertical>

@@ -41,7 +41,7 @@ class FindFriends extends React.Component {
         const allUsers = this.props.user.users.allUsers.filter(user => user.username.toLowerCase().includes(this.state.searchTerm))
         return allUsers.map((user, index) => {
             return (
-                <Grid.Column key={index}>
+                <Grid.Column key={index} >
                 <Card onClick={() => this.renderUserPage(user)}>
                     <Image src={user.profile_photo} wrapped ui={false} />
                         <Card.Content>

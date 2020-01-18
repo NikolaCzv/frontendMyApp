@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import userShowPage from './components/UserShowPage'
 import editProfile from './components/EditProfile'
 import addPost from './components/AddPost'
+import './App.css'
 
 class App extends React.Component {
 
