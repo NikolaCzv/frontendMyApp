@@ -5,18 +5,21 @@ import { connect } from 'react-redux'
 import { userFollowees, fetchUser, allUsers } from '../actions/userLogin'
 import { Image, Divider, Header, Grid, Label, Button} from 'semantic-ui-react'
 import { addLike, unlikePost } from '../actions/likes'
+import { fetchPosts } from '../actions/posts'
 
 class Dashboard extends React.Component {  
 
   componentDidMount(){
     this.props.userFollowees(this.props.user.currentUser)
     this.props.allUsers(this.props.user.currentUser)
+    this.props.fetchPosts()
   }
 
   componentDidUpdate(prevProps, prevState){
     if(!prevProps.user.currentUser.id && this.props.user.currentUser.id){
         this.props.allUsers(this.props.user.currentUser)
         this.props.userFollowees(this.props.user.currentUser)
+        this.props.fetchPosts()
     }
 }
 
@@ -32,51 +35,39 @@ handleUnlikeBtn = (userId, postId) => {
   this.props.unlikePost(userId, postId)
 }
 
-  renderFolloweesPosts = () => {
-  
 
-    // create a new array that is each followees posts 
-    // renderPosts with argument being thenew array 
-    return this.props.user.currentUser.followees.map((user, index) => {
-      return (
-        <div key={index}>
-          <Label as='a' image onClick={() => this.renderUserPage(user)}>
-            <img src={user.profile_photo} /> 
-            {user.username}
-          </Label>
-          {this.renderPosts(user.posts)}
-          <Divider hidden />
-        </div>
-      )
-    })
-  }
-
-  renderPosts = posts => {
-    return posts.map((post, index) => {
-      return(  
-        <div key={index}>
-          <Header as='h3'>{post.text}</Header>
-            <Image src={post.post_photo} bordered height='450' width='450'/>
-            {this.props.user.currentUser.liked_posts.find(liked_post => {
-                  return post.id === liked_post.id
-              }) ? 
-              <div>
-                <Button size='mini'
-                name='unlike'
-                onClick={() => this.handleUnlikeBtn(this.props.user.currentUser.id, post.id)}
-                > ❤️ </Button>
+  renderPosts = () => {
+    return this.props.user.posts.posts.map((post, index) => { 
+       const myUser = this.props.user.currentUser.followees.find(user => user.id === post.user_id)
+       if(myUser){
+        return(
+              <div key={index}>
+                      <Label key={index} as='a' image onClick={() => this.renderUserPage(myUser)}>
+                       <img src={myUser.profile_photo} /> 
+                        {myUser.username}
+                      </Label> 
+                        <Header as='h3'>{post.text}</Header>
+                          <Image src={post.post_photo} bordered height='450' width='450'/>
+                          {this.props.user.currentUser.liked_posts.find(liked_post => {
+                                return post.id === liked_post.id
+                            }) ? 
+                    <div>
+                      <Button size='mini'
+                      name='unlike'
+                      onClick={() => this.handleUnlikeBtn(this.props.user.currentUser.id, post.id)}
+                      > ❤️ </Button>
+                    </div>
+                    :
+                    <div>
+                      <Button
+                      name='like'
+                      onClick={ () => this.handleLikeBtn(this.props.user.currentUser.id, post.id)}
+                      size='mini'> ♡ </Button>
+                    </div>
+                  }
+                  <Divider hidden />
               </div>
-              :
-              <div>
-                <Button
-                name='like'
-                onClick={ () => this.handleLikeBtn(this.props.user.currentUser.id, post.id)}
-                size='mini'> ♡ </Button>
-              </div>
-            }
-            <Divider hidden />
-        </div>
-      )
+            )}
     })
   }
 
@@ -91,7 +82,7 @@ handleUnlikeBtn = (userId, postId) => {
                         <Grid.Column>
                         </Grid.Column>
                         <Grid.Column >
-                          {this.renderFolloweesPosts()}
+                          {this.renderPosts()}
                         </Grid.Column>
                         <Grid.Column >
                         </Grid.Column>
@@ -114,7 +105,8 @@ const mapDispatchToProps = dispatch => {
     fetchUser: user => {dispatch(fetchUser(user))},
     allUsers: user => {dispatch(allUsers(user))},
     addLike: (userId, postId) => {dispatch(addLike(userId, postId))},
-    unlikePost: (userId, postId) => {dispatch(unlikePost(userId, postId))}
+    unlikePost: (userId, postId) => {dispatch(unlikePost(userId, postId))},
+    fetchPosts: () => {dispatch(fetchPosts())}
   }
 }
 

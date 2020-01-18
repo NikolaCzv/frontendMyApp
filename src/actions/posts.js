@@ -15,6 +15,13 @@ const deletePostAction = (post) => {
     }
 }
 
+const allPosts = posts => {
+    return {
+        type: "ALL_POSTS",
+        posts
+    }
+}
+
 export const addPost = (post) => {
     return function(dispatch){
 
@@ -47,4 +54,12 @@ export const  deletePost = (post) => {
         .then(resp => resp.json())
         .then(data => dispatch(deletePostAction(data)))
     }
+}
+
+export const fetchPosts = () => {
+
+    return function(dispatch){
+        fetch("http://localhost:3000/api/v1/posts")
+        .then(resp => resp.json())
+        .then(data => dispatch(allPosts(data)))}
 }

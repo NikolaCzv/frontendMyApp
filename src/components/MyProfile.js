@@ -41,7 +41,7 @@ class MyProfile extends React.Component{
                             key={index} src={post.post_photo} 
                             bordered
                             id={post.id}/>
-                        <Button onClick={() => this.handleDelete(post)}>Delete</Button>
+                        <Button color='orange' onClick={() => this.handleDelete(post)}>Delete</Button>
                     </Grid.Column>
      })
 
