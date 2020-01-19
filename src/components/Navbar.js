@@ -35,6 +35,10 @@ class Navbar extends React.Component {
         history.push('/addPost')
     }
 
+    handleAddTrip = () => {
+        history.push('/addTrip')
+    }
+
 
     render(){
         const { activeItem } = this.state
@@ -55,6 +59,11 @@ class Navbar extends React.Component {
               name='add post'
               active={activeItem === 'add post'}
               onClick={this.handleAddPostBtn}
+            />
+            <Menu.Item
+              name='add trip'
+              active={activeItem === 'add trip'}
+              onClick={this.handleAddTrip}
             />
             <Menu.Item
               name='friends'

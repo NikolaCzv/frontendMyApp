@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import userShowPage from './components/UserShowPage'
 import editProfile from './components/EditProfile'
 import addPost from './components/AddPost'
+import addTrip from './components/AddTrip'
 import './App.css'
 
 class App extends React.Component {
@@ -29,6 +30,7 @@ class App extends React.Component {
             < Route exact path={`/profile/:id`} component={userShowPage} />
             < Route exact path='/editProfile' component={editProfile} />
             < Route exact path={'/addPost'} component={addPost} />
+            < Route exact path='/addTrip' component={addTrip} />
         </Router>
       </div>
     );

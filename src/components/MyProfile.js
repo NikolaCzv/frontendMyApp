@@ -1,14 +1,15 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { connect } from 'react-redux'
-import { Grid, Image, Card, Icon, Menu, Header, Button} from 'semantic-ui-react'
+import { Grid, Image, Card, Icon, Menu, Header, Button, Segment, Divider} from 'semantic-ui-react'
 import WithAuth from './WithAuth'
 import { deletePost } from '../actions/posts'
 
 class MyProfile extends React.Component{
 
     state = { 
-        editBtn: false
+        editBtn: false,
+        editTripsBtn: false
     }
 
     editProfile = () => {
@@ -17,12 +18,20 @@ class MyProfile extends React.Component{
 
     editPosts = () => {
         this.setState({
-            editBtn: !this.state.clicked
+            editBtn: !this.state.editBtn
         })
+    }
+
+    editTrips = () => {
+        this.setState({editTripsBtn: !this.state.editTripsBtn})
     }
 
     handleDelete = post => {
         this.props.deletePost(post)
+    }
+
+    addTripBtn = () => {
+        this.props.history.push('/addTrip')
     }
 
     renderPosts = () => {
@@ -44,7 +53,29 @@ class MyProfile extends React.Component{
                         <Button color='orange' onClick={() => this.handleDelete(post)}>Delete</Button>
                     </Grid.Column>
      })
+    }
 
+    renderTrips = () => {
+       return this.props.user.currentUser.trips.map((trip, index) => {
+            return <div key={index}>
+                        <p>✈️ Your have trip scheduled for {trip.start_date} until {trip.end_date}!</p>
+                        <Divider horizontal inverted>
+                            -------------------
+                        </Divider>
+                    </div>
+        })
+    }
+
+    renderEditTrips = () => {
+        return this.props.user.currentUser.trips.map((trip, index) => {
+            return <div key={index}>
+                        <p>✈️ Your have trip scheduled for {trip.start_date} until {trip.end_date}!</p>
+                        <Button size='mini' color='red'>Delete</Button> <Button size='mini' color='orange'>Edit</Button>
+                        <Divider horizontal inverted>
+                            -------------------
+                        </Divider>
+                    </div>
+        })
     }
 
 
@@ -95,7 +126,25 @@ class MyProfile extends React.Component{
                                 <Menu.Item
                                 name='edit posts'
                                 onClick={this.editPosts}/>
+                                <Menu.Item
+                                name='edit trips'
+                                onClick={this.editTrips}/>
                             </Menu>
+                            {this.state.editTripsBtn ?
+                            <Segment inverted color='green'>
+                                <Button size='mini'
+                                onClick={this.addTripBtn}> Add Trip </Button><br></br>
+                                <Header>My Trips</Header>
+                                <Divider inverted />
+                                {this.renderEditTrips()}
+                                </Segment>
+                                :
+                                <Segment inverted color='green'>
+                                <Header>My Trips </Header>
+                                <Divider inverted />
+                                    {this.renderTrips()}
+                                </Segment>
+                                }
                         </Grid.Column>
                     </Grid>
                 </div>

@@ -1,4 +1,3 @@
-import { connect } from "react-redux"
 
 const initialState = {
   posts: [], 
@@ -6,7 +5,8 @@ const initialState = {
   followers: [],
   showUser: {},
   liked_posts: [],
-  commented_posts: []
+  commented_posts: [],
+  trips: []
 }
 
 export default function auth(state = initialState, action) {
@@ -48,6 +48,10 @@ export default function auth(state = initialState, action) {
           return {...state, posts: [...state.posts, action.post]}
         case 'DELETE_POST':
           return {...state, posts: state.posts.filter(post => post.id !== action.post)}
+        case 'ADD_TRIP':
+          console.log('state', state)
+          console.log('action', action)
+          return {...state, trips: [...state.trips, action.trip]}
         default:
           return state
       }
