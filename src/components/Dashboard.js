@@ -6,6 +6,7 @@ import { userFollowees, fetchUser, allUsers } from '../actions/userLogin'
 import { Image, Divider, Header, Grid, Label, Button} from 'semantic-ui-react'
 import { addLike, unlikePost } from '../actions/likes'
 import { fetchPosts } from '../actions/posts'
+import { fetchAllTrips } from '../actions/trips'
 
 class Dashboard extends React.Component {  
 
@@ -13,6 +14,7 @@ class Dashboard extends React.Component {
     this.props.userFollowees(this.props.user.currentUser)
     this.props.allUsers(this.props.user.currentUser)
     this.props.fetchPosts()
+    this.props.fetchAllTrips()
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -20,6 +22,7 @@ class Dashboard extends React.Component {
         this.props.allUsers(this.props.user.currentUser)
         this.props.userFollowees(this.props.user.currentUser)
         this.props.fetchPosts()
+        this.props.fetchAllTrips()
     }
 }
 
@@ -72,6 +75,7 @@ handleUnlikeBtn = (userId, postId) => {
   }
 
     render(){
+      console.log(this.props.user.trips)
         return (
           <div>
             <div>
@@ -106,7 +110,8 @@ const mapDispatchToProps = dispatch => {
     allUsers: user => {dispatch(allUsers(user))},
     addLike: (userId, postId) => {dispatch(addLike(userId, postId))},
     unlikePost: (userId, postId) => {dispatch(unlikePost(userId, postId))},
-    fetchPosts: () => {dispatch(fetchPosts())}
+    fetchPosts: () => {dispatch(fetchPosts())},
+    fetchAllTrips: () => {dispatch(fetchAllTrips())}
   }
 }
 

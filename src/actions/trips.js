@@ -7,6 +7,13 @@ const addTrip = trip => {
     }
 }
 
+const allTrips = trips => {
+    return {
+        type: 'ALL_TRIPS',
+        trips
+    }
+}
+
 export const createTrip = trip => {
 
     return function(dispatch){
@@ -26,9 +33,15 @@ export const createTrip = trip => {
         fetch('http://localhost:3000/api/v1/trips', reqObj)
         .then(resp => resp.json())
         .then(data => {
-            debugger
             dispatch(addTrip(data))
             history.push('/myProfile')
         })
     }
+}
+
+export const fetchAllTrips = () => {
+    return function(dispatch){
+    fetch('http://localhost:3000/api/v1/trips')
+    .then(resp => resp.json())
+    .then(data => dispatch(allTrips(data)))}
 }

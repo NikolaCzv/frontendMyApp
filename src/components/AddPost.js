@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar'
-import { Button, Grid, Header, Input, Form} from 'semantic-ui-react'
+import { Button, Grid, Header, Input, Form, Image} from 'semantic-ui-react'
 import WithAuth from './WithAuth'
 import { connect } from 'react-redux'
 import { addPost } from '../actions/posts'
@@ -27,25 +27,24 @@ class AddPost extends React.Component {
     }
 
     render(){
-        return<div>
+        return<div className='addPost'>
                     <div>
                         < Navbar />
                     </div>
                     <div>
                     <Grid textAlign='center'>
-                    <Grid.Column style={{ maxWidth: 450 }}>
-                        <Header as='h2' color='green' textAlign='center'>
-                            Add New Post
-                        </Header>
-                        <Form onSubmit={this.handleSubmit}>
-                            <Input type='text' placeholder='Add Content...'  value={this.state.text} onChange={this.handleInput}/>
-                            <Input type='file' onChange={this.handleFile}/>
-                            <Button type="submit" color='orange'> Submit </Button>
-                        </Form>
-                    </Grid.Column>
-            </Grid>
-
-
+                        <Grid.Column style={{ maxWidth: 450 }}>
+                            <Header as='h2' color='green' textAlign='center'>
+                                Add New Post
+                            </Header>
+                            <Form onSubmit={this.handleSubmit}>
+                                <Input type='text' placeholder='Add Content...'  value={this.state.text} onChange={this.handleInput}/>
+                                <Input type='file' onChange={this.handleFile}/>
+                                <Button type="submit" color='orange'> Submit </Button>
+                            </Form>
+                        </Grid.Column>
+                    </Grid>
+                    <Image src='https://i.pinimg.com/564x/37/94/6b/37946b3b63f12482bd77be116c3cfc72.jpg' size='big' />
                     </div>
             </div>
     }

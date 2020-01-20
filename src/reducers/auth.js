@@ -49,8 +49,6 @@ export default function auth(state = initialState, action) {
         case 'DELETE_POST':
           return {...state, posts: state.posts.filter(post => post.id !== action.post)}
         case 'ADD_TRIP':
-          console.log('state', state)
-          console.log('action', action)
           return {...state, trips: [...state.trips, action.trip]}
         default:
           return state

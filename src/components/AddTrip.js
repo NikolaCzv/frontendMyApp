@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 import WithAuth from './WithAuth'
 import { connect } from 'react-redux'
 import { createTrip } from '../actions/trips'
-import { Button, Form, Divider, Label} from 'semantic-ui-react'
+import { Button, Form, Divider, Image} from 'semantic-ui-react'
 
 class AddTrip extends React.Component {
 
@@ -26,7 +26,7 @@ class AddTrip extends React.Component {
 
     render(){
         return(
-            <div>
+            <div className='addTrip'>
                 <div>
                     < Navbar />
                 </div>
@@ -51,6 +51,7 @@ class AddTrip extends React.Component {
                         <Button type='submit' color='green'>Submit</Button>
                         <Divider hidden />
                     </Form>
+                    <Image src='https://i.pinimg.com/564x/37/94/6b/37946b3b63f12482bd77be116c3cfc72.jpg' size='big' />
                 </div>
             </div>
         )
