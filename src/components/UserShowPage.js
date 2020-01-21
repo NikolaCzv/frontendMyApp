@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import WithAuth from './WithAuth'
 import { addFollower, unfollowUser,  } from '../actions/follow'
 import { showUserPage, userFollowees  } from '../actions/userLogin'
+import { updateTrip } from '../actions/trips'
 
 class UserShowPage extends React.Component {
     constructor(){
@@ -40,6 +41,10 @@ class UserShowPage extends React.Component {
         this.props.unfollowUser(followeeId, followerId)
     }
 
+    handleBookBtn = (trip, renterId) => {
+        this.props.updateTrip(trip, renterId)
+    }
+
     renderPosts = () => {
         return this.props.user.currentUser.showUser.posts.map((post, index) => {
             return <Image height='300' width='300' key={index} src={post.post_photo} bordered/>
@@ -51,7 +56,7 @@ class UserShowPage extends React.Component {
             if(trip.renter_id === null){
                 return <div key={index}>
                     <p>✈️ Future trip is scheduled for {trip.start_date} until {trip.end_date}!</p>
-                    <Button size='mini' color='orange'>Book</Button>
+                    <Button size='mini' color='orange' onClick={() => this.handleBookBtn(trip, this.props.user.currentUser.id)}>Book</Button>
                     <Divider horizontal inverted>
                         -------------------
                     </Divider>
@@ -63,6 +68,17 @@ class UserShowPage extends React.Component {
                                     </Divider>
                              </div>
                 }
+        })
+    }
+
+    renderBookedTrips = () => {
+        return this.props.user.currentUser.showUser.booked_trips.map((trip, index) => {
+                return <div key={index}>
+                    <p>✈️ Future trip is scheduled for {trip.start_date} until {trip.end_date}!</p>
+                    <Divider horizontal inverted>
+                        -------------------
+                    </Divider>
+                </div>
         })
     }
 
@@ -126,8 +142,12 @@ class UserShowPage extends React.Component {
                                     }
                                 </Menu>
                                 <Segment inverted color='green'>
-                                <Header as='h3'>All Trips</Header>
-                                {this.renderTrips()}
+                                    <Header as='h4'>All Trips</Header>
+                                    {this.renderTrips()}
+                                </Segment>
+                                <Segment inverted color='green'>
+                                    <Header as='h4'>App Booked Trips</Header>
+                                    {this.renderBookedTrips()}
                                 </Segment>
                             </Grid.Column>
                 </Grid>
@@ -148,7 +168,8 @@ const mapDispatchToProps = dispatch => {
         addFollower: (userId, followeeId) => {dispatch(addFollower(userId, followeeId))},
         unfollowUser: (followeeId, followerId)=> {dispatch(unfollowUser(followeeId, followerId))},
         showUserPage: (userId)=> {dispatch(showUserPage(userId))},
-        userFollowees: (user) => {dispatch(userFollowees(user))}
+        userFollowees: (user) => {dispatch(userFollowees(user))},
+        updateTrip: (trip, renterId) => {dispatch(updateTrip(trip, renterId))}
     }
 }
 

@@ -6,7 +6,8 @@ const initialState = {
   showUser: {},
   liked_posts: [],
   commented_posts: [],
-  trips: []
+  trips: [],
+  booked_trips: []
 }
 
 export default function auth(state = initialState, action) {
@@ -30,6 +31,7 @@ export default function auth(state = initialState, action) {
           let addFollowee = state.users.find(user => user.id === action.follow.followee_id) 
           return {...state, followees: [...state.followees, addFollowee]}}
         case 'UNFOLLOW':
+          debugger
           return {...state, followees: state.followees.filter(f => f.id !== action.followeeId)}
         case 'USER_FOLLOWEES':
           return {...state, followees: [...action.followees]}
@@ -50,6 +52,10 @@ export default function auth(state = initialState, action) {
           return {...state, posts: state.posts.filter(post => post.id !== action.post)}
         case 'ADD_TRIP':
           return {...state, trips: [...state.trips, action.trip]}
+        case 'DELETE_TRIP': 
+          return {...state, trips: state.trips.filter(trip => trip.id !== action.trip)}
+        case 'ADD_RENTER':
+          return {...state, booked_trips: [...state.booked_trips, action.trip]}
         default:
           return state
       }

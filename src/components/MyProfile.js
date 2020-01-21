@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Grid, Image, Card, Icon, Menu, Header, Button, Segment, Divider} from 'semantic-ui-react'
 import WithAuth from './WithAuth'
 import { deletePost } from '../actions/posts'
+import { deleteTrip } from '../actions/trips'
 
 class MyProfile extends React.Component{
 
@@ -26,8 +27,12 @@ class MyProfile extends React.Component{
         this.setState({editTripsBtn: !this.state.editTripsBtn})
     }
 
-    handleDelete = post => {
+    handleDeletePost = post => {
         this.props.deletePost(post)
+    }
+
+    handleDeleteTrip = trip => {
+        this.props.deleteTrip(trip)
     }
 
     addTripBtn = () => {
@@ -50,7 +55,7 @@ class MyProfile extends React.Component{
                             key={index} src={post.post_photo} 
                             bordered
                             id={post.id}/>
-                        <Button color='orange' onClick={() => this.handleDelete(post)}>Delete</Button>
+                        <Button color='orange' onClick={() => this.handleDeletePost(post)}>Delete</Button>
                     </Grid.Column>
      })
     }
@@ -70,13 +75,24 @@ class MyProfile extends React.Component{
         return this.props.user.currentUser.trips.map((trip, index) => {
             return <div key={index}>
                         <p>✈️ Your have trip scheduled for {trip.start_date} until {trip.end_date}!</p>
-                        <Button size='mini' color='red'>Delete</Button> <Button size='mini' color='orange'>Edit</Button>
+                        <Button size='mini' color='red' onClick={() => this.handleDeleteTrip(trip)}>Delete</Button>
                         <Divider horizontal inverted>
                             -------------------
                         </Divider>
                     </div>
         })
     }
+
+    renderBookedTrips = () => {
+        return this.props.user.currentUser.booked_trips.map((trip, index) => {
+             return <div key={index}>
+                         <p>✈️ Your have trip scheduled for {trip.start_date} until {trip.end_date}!</p>
+                         <Divider horizontal inverted>
+                             -------------------
+                         </Divider>
+                     </div>
+         })
+     }
 
 
     render(){
@@ -140,11 +156,16 @@ class MyProfile extends React.Component{
                                 </Segment>
                                 :
                                 <Segment inverted color='green'>
-                                <Header>My Trips </Header>
+                                <Header as='h4'>My Trips </Header>
                                 <Divider inverted />
                                     {this.renderTrips()}
                                 </Segment>
                                 }
+                                <Segment inverted color='green' >
+                                    <Header as='h4'>App Booked Trips</Header>
+                                    <Divider inverted />
+                                    {this.renderBookedTrips()}
+                                </Segment>
                         </Grid.Column>
                     </Grid>
                 </div>
@@ -161,7 +182,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        deletePost: (post) => {dispatch(deletePost(post))}
+        deletePost: (post) => {dispatch(deletePost(post))},
+        deleteTrip: (trip) => {dispatch(deleteTrip(trip))}
     }
 }
 

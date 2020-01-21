@@ -3,12 +3,16 @@ import WithAuth from './WithAuth'
 import Navbar from './Navbar'
 import { connect } from 'react-redux'
 import { userFollowees, fetchUser, allUsers } from '../actions/userLogin'
-import { Image, Divider, Header, Grid, Label, Button} from 'semantic-ui-react'
+import { Image, Divider, Header, Grid, Label, Button, Segment, Input} from 'semantic-ui-react'
 import { addLike, unlikePost } from '../actions/likes'
 import { fetchPosts } from '../actions/posts'
-import { fetchAllTrips } from '../actions/trips'
+import { fetchAllTrips, updateTrip} from '../actions/trips'
 
 class Dashboard extends React.Component {  
+
+  state = {
+    searchTerm: ''
+  }
 
   componentDidMount(){
     this.props.userFollowees(this.props.user.currentUser)
@@ -26,6 +30,12 @@ class Dashboard extends React.Component {
     }
 }
 
+handleSearch = event => {
+  this.setState({
+      searchTerm: event.target.value
+  })
+}
+
 renderUserPage = user => {
   this.props.fetchUser(user)
 }
@@ -40,7 +50,8 @@ handleUnlikeBtn = (userId, postId) => {
 
 
   renderPosts = () => {
-    return this.props.user.posts.posts.map((post, index) => { 
+    const sortedPosts = this.props.user.posts.posts.sort((a, b) => b.id - a.id)
+    return sortedPosts.map((post, index) => { 
        const myUser = this.props.user.currentUser.followees.find(user => user.id === post.user_id)
        if(myUser){
         return(
@@ -74,9 +85,31 @@ handleUnlikeBtn = (userId, postId) => {
     })
   }
 
+  handleBookTrip = (trip, renterId) => {
+    this.props.updateTrip(trip, renterId)
+  }
+
+  renderTrips = () => {
+    const allTrips = this.props.user.trips.trips.filter(trip => trip.start_date.includes(this.state.searchTerm))
+    return allTrips.map((trip, index) => {
+      const myUser = this.props.user.currentUser.followees.find(user => user.id === trip.user_id)
+      if(myUser && trip.renter_id === null){
+             return( <div key={index}>
+                    <Label key={index} as='a' image onClick={() => this.renderUserPage(myUser)}>
+                       <img src={myUser.profile_photo} /> 
+                        {myUser.username}
+                    </Label> <br></br>
+                    <p>✈️ Future trip is scheduled for {trip.start_date} until {trip.end_date}!</p>
+                    <Button size='mini' color='orange' onClick={() => this.handleBookTrip(trip, this.props.user.currentUser.id)}>Book</Button>
+                    <Divider horizontal inverted>
+                        -------------------
+                    </Divider>
+                </div>)}
+    })
+  }
+
     render(){
-      console.log(this.props.user.trips)
-        return (
+      return (
           <div>
             <div>
               < Navbar />
@@ -89,6 +122,10 @@ handleUnlikeBtn = (userId, postId) => {
                           {this.renderPosts()}
                         </Grid.Column>
                         <Grid.Column >
+                        <Input icon='search' iconPosition='left' placeholder='Search trips...' onChange={this.handleSearch}/>
+                          <Segment inverted color='green'>
+                            {this.renderTrips()}
+                          </Segment>
                         </Grid.Column>
                     </Grid>
             </div>
@@ -111,7 +148,8 @@ const mapDispatchToProps = dispatch => {
     addLike: (userId, postId) => {dispatch(addLike(userId, postId))},
     unlikePost: (userId, postId) => {dispatch(unlikePost(userId, postId))},
     fetchPosts: () => {dispatch(fetchPosts())},
-    fetchAllTrips: () => {dispatch(fetchAllTrips())}
+    fetchAllTrips: () => {dispatch(fetchAllTrips())},
+    updateTrip: (trip, renterId) => {dispatch(updateTrip(trip, renterId))}
   }
 }
 
