@@ -133,9 +133,8 @@ export const allUsers = (currentUser) => {
         fetch('http://localhost:3000/api/v1/users')
         .then(resp => resp.json())
         .then(data => {
-            // debugger
-            const fetchedUsers = data.filter( user => user.username !== currentUser.username)
-            dispatch(usersFetch(fetchedUsers))
+            // const fetchedUsers = data.filter( user => user.username !== currentUser.username)
+            dispatch(usersFetch(data))
         })
     }
 }

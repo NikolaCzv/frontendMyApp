@@ -31,7 +31,6 @@ export default function auth(state = initialState, action) {
           let addFollowee = state.users.find(user => user.id === action.follow.followee_id) 
           return {...state, followees: [...state.followees, addFollowee]}}
         case 'UNFOLLOW':
-          debugger
           return {...state, followees: state.followees.filter(f => f.id !== action.followeeId)}
         case 'USER_FOLLOWEES':
           return {...state, followees: [...action.followees]}
@@ -56,6 +55,8 @@ export default function auth(state = initialState, action) {
           return {...state, trips: state.trips.filter(trip => trip.id !== action.trip)}
         case 'ADD_RENTER':
           return {...state, booked_trips: [...state.booked_trips, action.trip]}
+        case 'ADD_COMMENT':
+          return {...state, commented_posts: [...state.commented_posts, action.comment]}
         default:
           return state
       }
