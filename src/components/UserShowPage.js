@@ -55,14 +55,14 @@ class UserShowPage extends React.Component {
         return this.props.user.currentUser.showUser.trips.map((trip, index) => {
             if(trip.renter_id === null){
                 return <div key={index}>
-                    <p>✈️ Future trip is scheduled for {trip.start_date} until {trip.end_date}!</p>
+                    <p>✈️ Future trip is scheduled for {trip.start_date} until {trip.end_date}!  You can book his/her place in {this.props.user.currentUser.showUser.hometown}!</p>
                     <Button size='mini' color='orange' onClick={() => this.handleBookBtn(trip, this.props.user.currentUser.id)}>Book</Button>
                     <Divider horizontal inverted>
                         -------------------
                     </Divider>
                 </div>} else {
                         return <div key={index}>
-                                    <p>✈️ Future trip is scheduled for {trip.start_date} until {trip.end_date}!</p>
+                                    <p>✈️ Future trip is scheduled for {trip.start_date} until {trip.end_date}! </p>
                                     <Divider horizontal inverted>
                                         -------------------
                                     </Divider>
@@ -74,7 +74,7 @@ class UserShowPage extends React.Component {
     renderBookedTrips = () => {
         return this.props.user.currentUser.showUser.booked_trips.map((trip, index) => {
                 return <div key={index}>
-                    <p>✈️ Future trip is scheduled for {trip.start_date} until {trip.end_date}!</p>
+        <p>✈️ Future trip is scheduled for {trip.start_date} until {trip.end_date}!</p>
                     <Divider horizontal inverted>
                         -------------------
                     </Divider>
@@ -104,7 +104,8 @@ class UserShowPage extends React.Component {
                                     <Card.Content>
                                         <Card.Header>{ this.props.user.currentUser.showUser.username}</Card.Header>
                                             <Card.Description>
-                                                Contact: { this.props.user.currentUser.showUser.email}
+                                                Contact: { this.props.user.currentUser.showUser.email}<br></br>
+                                                Home-Town: { this.props.user.currentUser.showUser.hometown}
                                             </Card.Description>
                                     </Card.Content>
                                      <Card.Content extra>

@@ -55,7 +55,12 @@ class MyProfile extends React.Component{
                             key={index} src={post.post_photo} 
                             bordered
                             id={post.id}/>
-                        <Button color='orange' onClick={() => this.handleDeletePost(post)}>Delete</Button>
+                            <Button animated='vertical' color='red' onClick={() => this.handleDeletePost(post)}>
+                                <Button.Content hidden>Delete</Button.Content>
+                                <Button.Content visible>
+                                    <Icon name='trash alternate' />
+                                </Button.Content>
+                                </Button>
                     </Grid.Column>
      })
     }
@@ -110,7 +115,7 @@ class MyProfile extends React.Component{
                                     <Card.Header>{this.props.user.currentUser.username}</Card.Header>
                                     <Card.Description>
                                         Contact: {this.props.user.currentUser.email} <br></br>
-                                        Home Town: {this.props.user.currentUser.hometown}
+                                        Home-Town: {this.props.user.currentUser.hometown}
                                     </Card.Description>
                                 </Card.Content>
                                 <Card.Content extra> 

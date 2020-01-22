@@ -3,7 +3,7 @@ import WithAuth from './WithAuth'
 import Navbar from './Navbar'
 import { connect } from 'react-redux'
 import { userFollowees, fetchUser, allUsers } from '../actions/userLogin'
-import { Image, Divider, Header, Grid, Label, Button, Segment, Input, Form} from 'semantic-ui-react'
+import { Image, Divider, Header, Grid, Label, Button, Segment, Input, Form, Icon} from 'semantic-ui-react'
 import { addLike, unlikePost } from '../actions/likes'
 import { fetchPosts } from '../actions/posts'
 import { fetchAllTrips, updateTrip} from '../actions/trips'
@@ -87,6 +87,16 @@ handleSubmit = (userId, comment) => {
 renderComments = (post) => {
   return post.comments.map((comment, index) => {
       let u = this.props.user.currentUser.users.find(user => user.id === comment.user_id)
+      if(comment.user_id === this.props.user.currentUser.id) {
+        return  <div key={index}>
+        <Label as='a' image onClick={() => this.renderUserPage(u)}>
+        <img src={u.profile_photo} /> 
+          {u.username}
+        </Label> 
+          {comment.content}
+          <Divider section />
+  </div>
+      } else {
       return  <div key={index}>
               <Label as='a' image onClick={() => this.renderUserPage(u)}>
               <img src={u.profile_photo} /> 
@@ -94,7 +104,7 @@ renderComments = (post) => {
               </Label> 
                 {comment.content}
                 <Divider section />
-        </div>
+        </div>}
 })
 } 
 

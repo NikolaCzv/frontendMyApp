@@ -192,7 +192,7 @@ export const  deleteProfile = (user) => {
         fetch(`http://localhost:3000/api/v1/show_user/${user.id}`, {method: 'DELETE'})
         .then(resp => resp.json())
         .then(data => dispatch(deleteUser(data)))
-        history.push('/login')
+        history.push('/')
     }
 }
 

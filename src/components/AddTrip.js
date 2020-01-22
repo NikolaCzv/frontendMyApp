@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 import WithAuth from './WithAuth'
 import { connect } from 'react-redux'
 import { createTrip } from '../actions/trips'
-import { Button, Form, Divider, Image} from 'semantic-ui-react'
+import { Button, Form, Divider, Image, Header} from 'semantic-ui-react'
 
 class AddTrip extends React.Component {
 
@@ -34,14 +34,14 @@ class AddTrip extends React.Component {
                     <Form size='small' onSubmit={this.handleSubmit}>
                     <Form.Group widths='equal'>
                             <Form.Field>
-                                <label> Start Date </label>
+                                <Header > Start Date </Header>
                                 <input
                                     name='startDate'
                                     placeholder='YYYY-MM-DD'
                                     onChange={this.handleChange}/>
                             </Form.Field>
                             <Form.Field>
-                                <label>End Date</label>
+                                <Header>End Date</Header>
                                 <input
                                     name='endDate'
                                     placeholder='YYYY-MM-DD'

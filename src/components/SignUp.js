@@ -8,12 +8,17 @@ class SignUp extends React.Component {
     state = {
         username: '',
         email: '',
+        hometown: '',
         password: '',
         password_confirmation: ''
     }
 
     handleBackButton = () => {
         this.props.history.push('/login')
+    }
+
+    handleHomePage = () => {
+        this.props.history.push('/')
     }
 
     handleChange = event => {
@@ -46,6 +51,12 @@ class SignUp extends React.Component {
                             onChange={this.handleChange}/>
                             </Form.Field>
                             <Form.Field>
+                            <label>Hometown</label>
+                            <input placeholder='Hometown'
+                            name='hometown'
+                            onChange={this.handleChange}/>
+                            </Form.Field>
+                            <Form.Field>
                             <label>Email</label>
                             <input
                             onChange={this.handleChange}
@@ -74,7 +85,8 @@ class SignUp extends React.Component {
                             </Form.Field>
                             
                             <Button type='submit' color='green' fluid size='large'>Submit</Button><br></br>
-                            <Button onClick={this.handleBackButton} fluid size='large'>Back to Login Page</Button>
+                            <Button onClick={this.handleBackButton} fluid size='large'>Back to Login Page</Button><br></br>
+                            <Button onClick={this.handleHomePage} fluid size='large'>Back to Home Page</Button>
                         </Form>
                     </Grid.Column>
             </Grid>
