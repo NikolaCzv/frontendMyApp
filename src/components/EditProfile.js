@@ -10,7 +10,8 @@ class EditProfile extends React.Component{
         username: this.props.user.currentUser.username,
         email: this.props.user.currentUser.email,
         id: this.props.user.currentUser.id,
-        photo: this.props.user.profile_photo
+        photo: this.props.user.profile_photo,
+        hometown: this.props.user.currentUser.hometown
     }
 
     handleSubmit = (event) => {
@@ -58,6 +59,13 @@ class EditProfile extends React.Component{
                             onChange={this.handleChange}/>
                             </Form.Field>
                             <Form.Field>
+                            <label>Home Town</label>
+                            <input value={this.state.hometown}
+                            name='hometown'
+                            type='text'
+                            onChange={this.handleChange}/>
+                            </Form.Field>
+                            <Form.Field>
                             <label>Email</label>
                             <input
                             type='text'
@@ -70,8 +78,7 @@ class EditProfile extends React.Component{
                                         }}/>
                             </Form.Field>
                             <Button type='submit' color='green' fluid size='large'>Submit</Button><br></br>
-                            <Button color='orange' fluid size='large'>Change password</Button><br></br>
-                            <Button onClick={() => this.handleDeleteBtn(this.props.user.currentUser)} fluid size='large'>Delete Profile</Button>
+                            <Button onClick={() => this.handleDeleteBtn(this.props.user.currentUser)} fluid size='large' color='red'>Delete Profile</Button>
                         </Form>
                     </Grid.Column>
             </Grid>

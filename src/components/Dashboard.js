@@ -185,7 +185,7 @@ renderComments = (post) => {
                        <img src={myUser.profile_photo} /> 
                         {myUser.username}
                     </Label> <br></br>
-                    <p>✈️ Future trip is scheduled for {trip.start_date} until {trip.end_date}!</p>
+                    <p>✈️ User is from {myUser.hometown}. You can book his/her apt from {trip.start_date} until {trip.end_date}!</p>
                     <Button size='mini' color='orange' onClick={() => this.handleBookTrip(trip, this.props.user.currentUser.id)}>Book</Button>
                     <Divider horizontal inverted>
                         -------------------

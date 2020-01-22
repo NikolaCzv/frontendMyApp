@@ -109,7 +109,8 @@ class MyProfile extends React.Component{
                                 <Card.Content>
                                     <Card.Header>{this.props.user.currentUser.username}</Card.Header>
                                     <Card.Description>
-                                        Contact: {this.props.user.currentUser.email}
+                                        Contact: {this.props.user.currentUser.email} <br></br>
+                                        Home Town: {this.props.user.currentUser.hometown}
                                     </Card.Description>
                                 </Card.Content>
                                 <Card.Content extra> 

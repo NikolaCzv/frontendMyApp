@@ -12,6 +12,7 @@ import userShowPage from './components/UserShowPage'
 import editProfile from './components/EditProfile'
 import addPost from './components/AddPost'
 import addTrip from './components/AddTrip'
+import homepage from './components/Homepage'
 import './App.css'
 
 class App extends React.Component {
@@ -20,7 +21,7 @@ class App extends React.Component {
     return (
       <div >
         < Router history={history}>
-            < Route exact path='/' component={login} />
+            < Route exact path='/' component={homepage} />
             < Route exact path='/login' component={login} />
             < Route exact path='/signup' component={signUp} />
             < Route exact path='/dashboard' component={dashboard} />

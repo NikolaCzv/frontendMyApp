@@ -133,7 +133,6 @@ export const allUsers = (currentUser) => {
         fetch('http://localhost:3000/api/v1/users')
         .then(resp => resp.json())
         .then(data => {
-            // const fetchedUsers = data.filter( user => user.username !== currentUser.username)
             dispatch(usersFetch(data))
         })
     }
@@ -169,6 +168,7 @@ export const editProfile = user => {
         const formData = new FormData();
         formData.append('username', user.username)
         formData.append('email', user.email)
+        formData.append('hometown', user.hometown)
         formData.append('photo', user.photo)
 
         const reqObj = {
