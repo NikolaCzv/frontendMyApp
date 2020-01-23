@@ -48,7 +48,7 @@ export const createTrip = trip => {
         .then(resp => resp.json())
         .then(data => {
             if(data.error){
-                alert('Invalid input')
+                alert('Invalid dates! Date structure should be (YYYY/MM/DD)')
             }else {
             dispatch(addTrip(data))
             history.push('/myProfile')}

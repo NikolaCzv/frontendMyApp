@@ -3,7 +3,7 @@ import WithAuth from './WithAuth'
 import Navbar from './Navbar'
 import { connect } from 'react-redux'
 import { userFollowees, fetchUser, allUsers } from '../actions/userLogin'
-import { Image, Divider, Header, Grid, Label, Button, Segment, Input, Form, Icon} from 'semantic-ui-react'
+import { Image, Divider, Header, Grid, Label, Button, Segment, Input, Form} from 'semantic-ui-react'
 import { addLike, unlikePost } from '../actions/likes'
 import { fetchPosts } from '../actions/posts'
 import { fetchAllTrips, updateTrip} from '../actions/trips'
@@ -120,7 +120,7 @@ renderComments = (post) => {
                         {myUser.username}
                       </Label> 
                         <Header as='h3'>{post.text}</Header>
-                          <Image src={post.post_photo} bordered height='450' width='450'/>
+                          <Image src={post.post_photo} bordered />
                           {this.props.user.currentUser.liked_posts.find(liked_post => {
                                 return post.id === liked_post.id
                             }) ? 
@@ -194,7 +194,8 @@ renderComments = (post) => {
                     <Label key={index} as='a' image onClick={() => this.renderUserPage(myUser)}>
                        <img src={myUser.profile_photo} /> 
                         {myUser.username}
-                    </Label> <br></br>
+                    </Label>
+                    < Divider hidden />
                     <p>✈️ User is from {myUser.hometown}. You can book his/her apt from {trip.start_date} until {trip.end_date}!</p>
                     <Button size='mini' color='orange' onClick={() => this.handleBookTrip(trip, this.props.user.currentUser.id)}>Book</Button>
                     <Divider horizontal inverted>
@@ -210,14 +211,15 @@ renderComments = (post) => {
             <div>
               < Navbar />
             </div>
+            < Divider hidden />
             <div >
             <Grid columns={3}>
                         <Grid.Column>
                         </Grid.Column>
-                        <Grid.Column >
+                        <Grid.Column className='dashPost'>
                           {this.renderPosts()}
                         </Grid.Column>
-                        <Grid.Column >
+                        <Grid.Column  className='dashTrip'>
                         <Input icon='search' iconPosition='left' placeholder='Search by start date...' onChange={this.handleSearch}/>
                           <Segment inverted color='green'>
                             {this.renderTrips()}

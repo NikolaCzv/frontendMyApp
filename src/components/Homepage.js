@@ -40,7 +40,6 @@ class Homepage extends React.Component {
             <Button content='Sign up' icon='signup' size='large' color='green' onClick={this.handleSignup}/>
             <Divider hidden/>
             <Button content='Login' icon='signup' color='green' size='large' onClick={this.handleLogin}/>
-          <Image src='https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/3577562/910/607/m1/fpnw/wm0/preview-16-.jpg?1510687184&s=e5e2c8201a94c91a67e04ffbc763c504' circular />
           </Grid.Column>
         </Grid>
     

@@ -40,11 +40,17 @@ class FindFriends extends React.Component {
     renderUsers = () => {
         const fileterdList = this.props.user.users.allUsers.filter( user => user.username !== this.props.user.currentUser.username)
         const allUsers = fileterdList.filter(user => user.username.toLowerCase().includes(this.state.searchTerm))
+        const styles = {
+            'width': '100%',
+            'height': '250px',
+            'object-fit': 'cover',
+            'object-position': '50% 50%'
+        }
         return allUsers.map((user, index) => {
             return (
                 <Grid.Column key={index} >
-                <Card onClick={() => this.renderUserPage(user)}>
-                    <Image src={user.profile_photo} wrapped ui={false} />
+                <Card onClick={() => this.renderUserPage(user)} >
+                    <Image src={user.profile_photo} style={styles} />
                         <Card.Content>
                             <Card.Header>{user.username}</Card.Header>
                         </Card.Content>
