@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar'
-import { Button, Grid, Header, Input, Form, Image} from 'semantic-ui-react'
+import { Button, Grid, Header, Input, Form, Image, Divider} from 'semantic-ui-react'
 import WithAuth from './WithAuth'
 import { connect } from 'react-redux'
 import { addPost } from '../actions/posts'
@@ -39,7 +39,9 @@ class AddPost extends React.Component {
                             </Header>
                             <Form onSubmit={this.handleSubmit}>
                                 <Input type='text' placeholder='Add Content...'  value={this.state.text} onChange={this.handleInput}/>
-                                <Input type='file' onChange={this.handleFile}/>
+                                <label className='ui button' htmlFor='uploadPhoto'>Choose Picture</label>
+                                <input hidden id='uploadPhoto' type='file' onChange={this.handleFile} /><br></br>
+                                < Divider hidden/>
                                 <Button type="submit" color='orange'> Submit </Button>
                             </Form>
                         </Grid.Column>

@@ -93,6 +93,7 @@ renderComments = (post) => {
         <img src={u.profile_photo} /> 
           {u.username}
         </Label> 
+        <Divider hidden />
           {comment.content}
           <Divider section />
   </div>

@@ -1,16 +1,36 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { connect } from 'react-redux'
-import { Grid, Image, Card, Icon, Menu, Header, Button, Segment, Divider} from 'semantic-ui-react'
+import { Grid, Image, Card, Icon, Menu, Header, Button, Segment, Divider, Label} from 'semantic-ui-react'
 import WithAuth from './WithAuth'
 import { deletePost } from '../actions/posts'
 import { deleteTrip } from '../actions/trips'
+import {allUsers, fetchUser} from '../actions/userLogin'
+
 
 class MyProfile extends React.Component{
 
     state = { 
         editBtn: false,
-        editTripsBtn: false
+        editTripsBtn: false,
+        clicked: undefined
+    }
+
+    componentDidMount = () => {
+        if(this.props.user.currentUser.id){
+            this.props.allUsers(this.props.user.currentUser)
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState){
+
+        if(!prevProps.user.currentUser.id && this.props.user.currentUser.id){
+            this.props.allUsers(this.props.user.currentUser)
+        }
+    }
+
+    renderUserPage = user => {
+        this.props.fetchUser(user)
     }
 
     editProfile = () => {
@@ -39,12 +59,25 @@ class MyProfile extends React.Component{
         this.props.history.push('/addTrip')
     }
 
+    handleImage = (event) => {
+        this.setState({
+            clicked: event.target.id
+        })
+    }
+
+    handleHide = () => {
+        this.setState({
+            clicked: undefined
+        })
+    }
+
     renderPosts = () => {
         return this.props.user.currentUser.posts.map((post, index) => {
                return <Image height='300' width='300'
                             key={index} src={post.post_photo} 
                             bordered
-                            id={post.id}/>
+                            id={post.id}
+                            onClick={this.handleImage}/>
         })
     }
 
@@ -60,7 +93,7 @@ class MyProfile extends React.Component{
                                 <Button.Content visible>
                                     <Icon name='trash alternate' />
                                 </Button.Content>
-                                </Button>
+                            </Button>
                     </Grid.Column>
      })
     }
@@ -91,7 +124,7 @@ class MyProfile extends React.Component{
     renderBookedTrips = () => {
         return this.props.user.currentUser.booked_trips.map((trip, index) => {
              return <div key={index}>
-                         <p>✈️ Your have trip scheduled for {trip.start_date} until {trip.end_date}!</p>
+        <p>✈️ Your have trip scheduled for {trip.start_date} until {trip.end_date}! </p>
                          <Divider horizontal inverted>
                              -------------------
                          </Divider>
@@ -99,12 +132,54 @@ class MyProfile extends React.Component{
          })
      }
 
+     showComments = (post) => {
+        return post.comments.map(comment => {
+            const userCommented = this.props.user.users.allUsers.find(user => user.id === comment.user_id)
+            return <div>
+                       <Divider hidden/> 
+                       <Label as='a' image onClick={() => this.renderUserPage(userCommented)}>
+                            <img src={userCommented.profile_photo} /> 
+                            {userCommented.username}
+                        </Label>
+                        <Divider hidden/>
+                          {comment.content}
+                       <Divider/>
+                   </div>
+        })
+     }
+
+
+     showClickedImage = () => {
+         const clickedPost = this.props.user.currentUser.posts.find(post => post.id === parseInt(this.state.clicked))
+         return <div>
+                    <Image height='650' width='925'
+                        src={clickedPost.post_photo} 
+                        id={clickedPost.id}
+                        bordered
+                        />
+                    <Divider hidden/>
+                    <Button size='mini'
+                      icon='heart'
+                      color='red'
+                      name='unlike'
+                      label={{ as: 'a', basic: true, content: clickedPost.likes }}
+                      labelPosition='right'
+                      />
+                    <Button size='mini' color='red' onClick={() => this.handleDeletePost(clickedPost)}>Delete</Button>
+                    <Button onClick={this.handleHide} size='mini'> Hide </Button>
+                    <Divider></Divider>
+                    <h4>Comments</h4>
+                    {this.showComments(clickedPost)}
+                </div>
+     }
+
 
     render(){
+        console.log(this.state.clicked)
         return(
             <div>
                 <div>
-                    < Navbar />
+                    <Navbar/>
                 </div>
                 <div>
                     <Grid>
@@ -127,17 +202,23 @@ class MyProfile extends React.Component{
                             </Card>
                         </Grid.Column>
                         <Grid.Column width={9}>
-                        <Header as='h3'>My Posts</Header>
-                        <Header as='h3'></Header>
-
-                            <Grid relaxed='very' columns={3}>
+                        {this.state.clicked ?
+                        <div>
+                            {this.showClickedImage()}     
+                        </div> : <div>
+                                    <Header as='h3'>My Posts</Header>
+                                    <Header as='h3'></Header>
+                                    <Grid relaxed='very' columns={3}>
                                         {this.state.editBtn ?
-                                            this.renderPostsDelete()
+                                        this.renderPostsDelete()
                                         :
                                         <Image.Group columns={3} >
                                             {this.renderPosts()}
                                         </Image.Group>}
-                            </Grid>
+                                    </Grid>
+                                </div>
+                        
+                        }
                         </Grid.Column>
                         <Grid.Column width={3}>
                         <Menu secondary vertical>
@@ -189,7 +270,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         deletePost: (post) => {dispatch(deletePost(post))},
-        deleteTrip: (trip) => {dispatch(deleteTrip(trip))}
+        deleteTrip: (trip) => {dispatch(deleteTrip(trip))},
+        allUsers: (user) => {dispatch(allUsers(user))},
+        fetchUser: user => {dispatch(fetchUser(user))}
     }
 }
 

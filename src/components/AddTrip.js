@@ -5,6 +5,9 @@ import { connect } from 'react-redux'
 import { createTrip } from '../actions/trips'
 import { Button, Form, Divider, Image, Header} from 'semantic-ui-react'
 
+
+
+
 class AddTrip extends React.Component {
 
     state = {
