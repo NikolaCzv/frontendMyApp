@@ -51,6 +51,13 @@ class MyProfile extends React.Component{
         this.props.deletePost(post)
     }
 
+    handleDeleteImage = post => {
+        this.props.deletePost(post)
+        this.setState({
+            clicked: undefined
+        })
+    }
+
     handleDeleteTrip = trip => {
         this.props.deleteTrip(trip)
     }
@@ -165,7 +172,7 @@ class MyProfile extends React.Component{
                       label={{ as: 'a', basic: true, content: clickedPost.likes }}
                       labelPosition='right'
                       />
-                    <Button size='mini' color='red' onClick={() => this.handleDeletePost(clickedPost)}>Delete</Button>
+                    <Button size='mini' color='red' onClick={() => this.handleDeleteImage(clickedPost)}>Delete</Button>
                     <Button onClick={this.handleHide} size='mini'> Hide </Button>
                     <Divider></Divider>
                     <h4>Comments</h4>
@@ -175,7 +182,6 @@ class MyProfile extends React.Component{
 
 
     render(){
-        console.log(this.state.clicked)
         return(
             <div>
                 <div>
