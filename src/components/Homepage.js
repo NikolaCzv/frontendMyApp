@@ -42,7 +42,6 @@ class Homepage extends React.Component {
             <Button content='Login' icon='signup' color='green' size='large' onClick={this.handleLogin}/>
           </Grid.Column>
         </Grid>
-    
         <Divider vertical></Divider>
       </Segment>
     }

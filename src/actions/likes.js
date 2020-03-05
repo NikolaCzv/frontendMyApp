@@ -45,7 +45,8 @@ export const  unlikePost = (userId, postId) => {
 
         fetch(`http://localhost:3000/api/v1/likes/${userId}/${postId}`, {method: 'DELETE'})
         .then(resp => resp.json())
-        .then(data => {dispatch(unlike(postId))
+        .then(data => {
+        dispatch(unlike(postId))
         console.log(data)
         history.push('/dashboard')})
     }

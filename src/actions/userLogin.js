@@ -73,11 +73,9 @@ export const login = user => {
             history.push('/dashboard')
         }
       })
-
-      
     }
-
 }
+
 export const checkUser = token => {
     
     return dispatch => {

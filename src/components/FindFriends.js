@@ -42,9 +42,7 @@ class FindFriends extends React.Component {
         const allUsers = fileterdList.filter(user => user.username.toLowerCase().includes(this.state.searchTerm))
         const styles = {
             'width': '100%',
-            'height': '250px',
-            'object-fit': 'cover',
-            'object-position': '50% 50%'
+            'height': '250px'
         }
         return allUsers.map((user, index) => {
             return (
