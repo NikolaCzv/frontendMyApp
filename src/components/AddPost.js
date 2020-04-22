@@ -1,9 +1,17 @@
-import React from 'react'
-import Navbar from './Navbar'
-import { Button, Grid, Header, Input, Form, Image, Divider} from 'semantic-ui-react'
-import WithAuth from './WithAuth'
-import { connect } from 'react-redux'
-import { addPost } from '../actions/posts'
+import React from 'react';
+import Navbar from './Navbar';
+import {
+    Button,
+    Grid,
+    Header,
+    Input,
+    Form,
+    Image,
+    Divider
+} from 'semantic-ui-react';
+import WithAuth from './WithAuth';
+import { connect } from 'react-redux';
+import { addPost } from '../actions/posts';
 
 class AddPost extends React.Component {
 
@@ -14,16 +22,16 @@ class AddPost extends React.Component {
     }
 
     handleInput = (event) => {
-        this.setState({ text: event.target.value})
+        this.setState({ text: event.target.value});
     }
 
     handleFile = (event) => {
-        this.setState({photo: event.currentTarget.files[0]})
+        this.setState({photo: event.currentTarget.files[0]});
     }
 
     handleSubmit = (event) => {
-        event.preventDefault()
-        this.props.addPost(this.state)
+        event.preventDefault();
+        this.props.addPost(this.state);
     }
 
     render(){

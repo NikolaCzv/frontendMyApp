@@ -1,9 +1,23 @@
-import React from 'react'
-import WithAuth from './WithAuth'
-import Navbar from './Navbar'
-import { connect } from 'react-redux'
-import { userFollowees, fetchUser, allUsers } from '../actions/userLogin'
-import { Image, Divider, Header, Grid, Label, Button, Segment, Input, Form} from 'semantic-ui-react'
+import React from 'react';
+import WithAuth from './WithAuth';
+import Navbar from './Navbar';
+import { connect } from 'react-redux';
+import {
+  userFollowees,
+  fetchUser,
+  allUsers
+} from '../actions/userLogin';
+import {
+  Image,
+  Divider,
+  Header,
+  Grid,
+  Label,
+  Button,
+  Segment,
+  Input,
+  Form
+} from 'semantic-ui-react';
 import { addLike, unlikePost } from '../actions/likes'
 import { fetchPosts } from '../actions/posts'
 import { fetchAllTrips, updateTrip} from '../actions/trips'
@@ -19,69 +33,69 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount(){
-    this.props.userFollowees(this.props.user.currentUser)
-    this.props.allUsers(this.props.user.currentUser)
-    this.props.fetchPosts()
-    this.props.fetchAllTrips()
+    this.props.userFollowees(this.props.user.currentUser);
+    this.props.allUsers(this.props.user.currentUser);
+    this.props.fetchPosts();
+    this.props.fetchAllTrips();
   }
 
   componentDidUpdate(prevProps, prevState){
     if(!prevProps.user.currentUser.id && this.props.user.currentUser.id){
-        this.props.allUsers(this.props.user.currentUser)
-        this.props.userFollowees(this.props.user.currentUser)
-        this.props.fetchPosts()
-        this.props.fetchAllTrips()
+        this.props.allUsers(this.props.user.currentUser);
+        this.props.userFollowees(this.props.user.currentUser);
+        this.props.fetchPosts();
+        this.props.fetchAllTrips();
     }
 }
 
 handleSearch = event => {
   this.setState({
       searchTerm: event.target.value
-  })
+  });
 }
 
 renderUserPage = user => {
-  this.props.fetchUser(user)
+  this.props.fetchUser(user);
 }
 
 handleLikeBtn = (userId, postId) => {
-  this.props.addLike(userId, postId)
+  this.props.addLike(userId, postId);
 }
 
 handleUnlikeBtn = (userId, postId) => {
-  this.props.unlikePost(userId, postId)
+  this.props.unlikePost(userId, postId);
 }
 
 handleShowComments = (post) => {
   this.setState({
     showComments: post.id
-  })
+  });
 }
 
 handleHideComments = () => {
   this.setState({
     showComments: undefined,
     addComment: undefined
-  })
+  });
 }
 
 handleAddComment = (post) => {
   this.setState({
     addComment: post.id
-  })
+  });
 }
 
 handleChange = event => {
   this.setState({
     commentContent: event.target.value
-  })
+  });
 }
 
 handleSubmit = (userId, comment) => {
   this.props.createComment(userId, comment)
     this.setState({
       addComment: undefined
-    })
+    });
 }
 
 renderComments = (post) => {

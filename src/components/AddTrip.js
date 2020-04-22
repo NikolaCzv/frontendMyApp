@@ -1,9 +1,15 @@
-import React from 'react'
-import Navbar from './Navbar'
-import WithAuth from './WithAuth'
-import { connect } from 'react-redux'
-import { createTrip } from '../actions/trips'
-import { Button, Form, Divider, Image, Header} from 'semantic-ui-react'
+import React from 'react';
+import Navbar from './Navbar';
+import WithAuth from './WithAuth';
+import { connect } from 'react-redux';
+import { createTrip } from '../actions/trips';
+import {
+    Button,
+    Form,
+    Divider,
+    Image,
+    Header
+} from 'semantic-ui-react';
 
 
 
@@ -19,12 +25,12 @@ class AddTrip extends React.Component {
     handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value
-        })
+        });
     }
 
     handleSubmit = event => {
-        event.preventDefault()
-        this.props.createTrip(this.state)
+        event.preventDefault();
+        this.props.createTrip(this.state);
     }
 
     render(){
@@ -54,7 +60,9 @@ class AddTrip extends React.Component {
                         <Button type='submit' color='green'>Submit</Button>
                         <Divider hidden />
                     </Form>
-                    <Image src='https://i.pinimg.com/564x/37/94/6b/37946b3b63f12482bd77be116c3cfc72.jpg' size='big' />
+                    <Image
+                        src='https://i.pinimg.com/564x/37/94/6b/37946b3b63f12482bd77be116c3cfc72.jpg'
+                        size='big'/>
                 </div>
             </div>
         )

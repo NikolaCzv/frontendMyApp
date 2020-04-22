@@ -1,6 +1,14 @@
 import React from 'react'
 import Navbar from './Navbar'
-import { Button, Form, Grid, Divider, Image, Header, Input} from 'semantic-ui-react'
+import {
+    Button,
+    Form,
+    Grid,
+    Divider,
+    Image,
+    Header,
+    Input
+} from 'semantic-ui-react';
 import { connect } from 'react-redux'
 import { editProfile, deleteProfile } from '../actions/userLogin'
 
